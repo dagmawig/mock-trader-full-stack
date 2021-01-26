@@ -1,0 +1,47 @@
+.header {
+    height: 75px;
+    padding: 0px;
+}
+.header_row {
+    display: flex;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    align-items: center;
+    justify-content: space-between; 
+    background-color:black;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    color: limegreen;
+}
+.header_cash {
+    padding: 5px;
+}
+.header_stock {
+    padding: 5px;
+}
+.header_logout {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0px;
+}
+.header_cash_top, .header_stock_top {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+.header_cash_bottom, .header_stock_bottom {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+

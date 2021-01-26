@@ -6,7 +6,7 @@ import { auth } from './FirebaseConfig';
 
 function Login() {
     //adding history of router components
-    const history = useHistory();
+    //const history = useHistory();
     // declaring username and password states
     const [email, getEmail] = useState('');
     const [password, getPassword] = useState('');

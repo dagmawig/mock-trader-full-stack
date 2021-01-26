@@ -11,8 +11,9 @@ img {
 
 .login_form {
     display: flex;
-    align-items: center;
+    align-items: space-between;
     max-width:  100%;
+    padding-top: 10%;
     justify-content: center;
 }
 .divider {
