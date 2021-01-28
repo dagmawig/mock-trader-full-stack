@@ -6,18 +6,7 @@
     height: calc(100vh - 120px);
     overflow-y: scroll;
 }
-.home_row {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 0px;
-    padding: 10px;
-    position: relative;
-    align-items: center;
-    color: white;
-}
-.home_row::before {
+.home::before {
     content: '';
     position: absolute;
     top: 0;
@@ -29,8 +18,19 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.home_row {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px;
+    padding: 10px;
+    position: relative;
+    align-items: center;
+    color: white;
+}
 .home_investing {
-    background-color: rgba(0,0,0,1);
+    background-color: rgba(0,0,0,.8);
     border: black solid 1px;
     border-radius: 15px;
     overflow: hidden;
@@ -38,11 +38,10 @@
     flex-direction: column;
     width: 100%;
     margin: 0px;
-    /* margin-top: 0px; */
     margin-bottom: 5px;
 }
 .home_watchlist {
-    background-color: rgba(0,0,0,1);
+    background-color: rgba(0,0,0,.7);
     border: black solid 1px;
     border-radius: 15px;
     overflow: hidden;
@@ -66,7 +65,6 @@
     z-index: 5;
 }
 .home_stock {
-    background-color: rgba(0,0,0,1);
     color: white;
     display: flex;
     width: 100%;
