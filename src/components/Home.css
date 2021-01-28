@@ -1,0 +1,95 @@
+.home {
+    padding: 0;
+    margin-top: -50px;
+    z-index: -1;
+    height: 100vh;
+}
+.home_row {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px;
+    margin-top: -50px;
+    padding: 5px;
+    position: relative;
+    align-items: center;
+    color: white;
+}
+.home_row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-image: url("../images/background.jpg");
+    opacity: 0.4;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.home_investing {
+    background-color: rgba(0,0,0,1);
+    border: black solid 1px;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px;
+    margin-top: 68px;
+    margin-bottom: 5px;
+}
+.home_watchlist {
+    background-color: rgba(0,0,0,1);
+    border: black solid 1px;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px;
+    margin-bottom: 5px;
+}
+.home_header  {
+    color: white;
+    font-size: 16pt;
+    display: flex;
+    width: 100%;
+    margin: 0px;
+    padding: 3px;
+    margin-bottom: -1px;
+    align-items: center;
+    justify-content: space-between; 
+    border-bottom: double limegreen 1px;
+    z-index: 5;
+}
+.home_stock {
+    background-color: rgba(0,0,0,1);
+    color: white;
+    display: flex;
+    width: 100%;
+    margin: 0px;
+    align-items: center;
+    justify-content: space-between; 
+    border-top: dotted limegreen 1px;
+}
+.home_header_title, .home_stock_ticker {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 0px;
+    padding: 3px;
+}
+.home_header_icon, .home_stock_price {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin: 0px;
+    padding: 3px;
+}
+.fa-bolt {
+    color: yellow;
+}

@@ -1,22 +1,25 @@
 .header {
-    height: 75px;
     padding: 0px;
+    margin-bottom: 0px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    height: 50px;
+
 }
 .header_row {
     display: flex;
     width: 100%;
     margin: 0px;
-    padding: 0px;
+    padding: 5px 0px;
     align-items: center;
     justify-content: space-between; 
     background-color:black;
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    color: limegreen;
+    color: white;
 }
 .header_cash {
     padding: 5px;
+    border-right: dotted lightgrey 1px;
 }
 .header_stock {
     padding: 5px;

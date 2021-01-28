@@ -1,14 +1,13 @@
 import React from 'react';
 import './Header.css';
-import { Link } from 'react-router-dom';
 
 function Header() {
     return (
         <div className="header container">
             <div className="header_row row">
-                <div className="header_cash col-4 col-sm-3">
+                <div className="header_cash col-5 col-sm-3">
                     <div className="header_cash_top row">
-                        Cash &emsp;<i className="fa fa-money"></i>
+                        Buying Power &emsp;<i className="fa fa-money"></i>
                     </div>
                     <div className="header_cash_bottom row">
                         $1000.000
