@@ -40,6 +40,103 @@ function Home() {
                             $209.93
                         </div>
                     </div>
+                    <div className="home_stock row">
+                        <div className="home_stock_ticker col-6">
+                            BA
+                        </div>
+                        <div className="home_stock_price col-6">
+                            $209.93
+                        </div>
+                    </div>
+                    <div className="home_stock row">
+                        <div className="home_stock_ticker col-6">
+                            BA
+                        </div>
+                        <div className="home_stock_price col-6">
+                            $209.93
+                        </div>
+                    </div>
+                    <div className="home_stock row">
+                        <div className="home_stock_ticker col-6">
+                            BA
+                        </div>
+                        <div className="home_stock_price col-6">
+                            $209.93
+                        </div>
+                    </div>
+                    <div className="home_stock row">
+                        <div className="home_stock_ticker col-6">
+                            BA
+                        </div>
+                        <div className="home_stock_price col-6">
+                            $209.93
+                        </div>
+                    </div>
+                    <div className="home_stock row">
+                        <div className="home_stock_ticker col-6">
+                            BA
+                        </div>
+                        <div className="home_stock_price col-6">
+                            $209.93
+                        </div>
+                    </div>
+                    <div className="home_stock row">
+                        <div className="home_stock_ticker col-6">
+                            BA
+                        </div>
+                        <div className="home_stock_price col-6">
+                            $209.93
+                        </div>
+                    </div>
+                    <div className="home_stock row">
+                        <div className="home_stock_ticker col-6">
+                            BA
+                        </div>
+                        <div className="home_stock_price col-6">
+                            $209.93
+                        </div>
+                    </div>
+                    <div className="home_stock row">
+                        <div className="home_stock_ticker col-6">
+                            BA
+                        </div>
+                        <div className="home_stock_price col-6">
+                            $209.93
+                        </div>
+                    </div>
+                    <div className="home_stock row">
+                        <div className="home_stock_ticker col-6">
+                            BA
+                        </div>
+                        <div className="home_stock_price col-6">
+                            $209.93
+                        </div>
+                    </div>
+                    <div className="home_stock row">
+                        <div className="home_stock_ticker col-6">
+                            BA
+                        </div>
+                        <div className="home_stock_price col-6">
+                            $209.93
+                        </div>
+                    </div>
+                    <div className="home_stock row">
+                        <div className="home_stock_ticker col-6">
+                            BA
+                        </div>
+                        <div className="home_stock_price col-6">
+                            $209.93
+                        </div>
+                    </div>
+                    <div className="home_stock row">
+                        <div className="home_stock_ticker col-6">
+                            BA
+                        </div>
+                        <div className="home_stock_price col-6">
+                            $209.93
+                        </div>
+                    </div>
+                   
                 </div>
             </div>
         </div>

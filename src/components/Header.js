@@ -22,7 +22,7 @@ function Header() {
                     </div>
                 </div>
                 <div className="header_logout col-2">
-                    <button className="header_button btn btn-danger">Log Out</button>
+                    <button className="header_button"><i className="fa fa-power-off fa-2x" ></i></button>
                 </div>
             </div>
         </div>
