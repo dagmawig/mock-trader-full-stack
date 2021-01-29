@@ -5,6 +5,7 @@
     padding: 0;
     height: calc(100vh - 120px);
     overflow-y: scroll;
+    font-family: 'Courier New', Courier, monospace;
 }
 .home::before {
     content: '';

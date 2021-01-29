@@ -1,0 +1,96 @@
+.search {
+    position:static;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+    height: calc(100vh - 120px);
+    overflow-y: scroll;
+    font-family: 'Courier New', Courier, monospace;
+}
+.search::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-image: url("../images/background.jpg");
+    opacity: 0.4;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.search_row {
+    /* min-height: 100%; */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 5px;
+    /* position: relative; */
+    align-items: center;
+    color: white;
+    background-color: rgba(0,0,0,.8);
+    border: black solid 1px;
+    border-radius: 15px;
+}
+.search_header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px;
+    padding: 12px;
+    border-bottom: white dashed 2px;
+}
+.search_position {
+    /* display: flex;
+    flex-direction: column; */
+    width: 100%;
+    margin: 0px;
+    padding: 12px;
+}
+.search_header_title {
+    font-size: 20pt;
+    font-weight: bold;
+    padding: 0;
+}
+.search_header_price {
+    font-size: 18pt;
+    font-weight: bold;
+    padding: 0;
+}
+.search_position_title {
+    padding: 0;
+    padding-bottom: 5px;
+    font-weight: 800;
+    font-size: 16pt;
+}
+.search_value_top, .search_value_bottom {
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+    padding: 0px;
+}
+.search_shares_bottom, .search_value_bottom, 
+.search_cost_bottom, .search_return_bottom {
+    font-size: 14pt;
+    font-weight: 800;
+}
+.search_buy {
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+    padding: 0px;
+}
+.search_button {
+    width: 50%;
+    height: 75%;
+    background-color: purple;
+    border: none;
+    border-radius: 10px;
+    /* outline: none; */
+    cursor: pointer;
+    font-size: 14pt;
+    font-weight: 800;
+}
+
+
