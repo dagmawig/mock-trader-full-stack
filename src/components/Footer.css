@@ -32,6 +32,9 @@
     outline: none;
     cursor: pointer;
 }
+.footer_button:focus {
+    outline: none;
+}
 .fa-home, .fa-history, .fa-search {
     color: green;
 }

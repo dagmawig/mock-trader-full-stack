@@ -42,6 +42,9 @@
     outline: none;
     cursor: pointer;
 }
+.header_button:focus {
+    outline: none;
+}
 .fa-power-off {
     color: red;
 }

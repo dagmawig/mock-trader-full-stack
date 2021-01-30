@@ -15,9 +15,19 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/">
+          <Route path="/search">
+            <Header />
+            <Search />
+            <Footer />
+          </Route>
+          <Route path="/history">
             <Header />
             <History />
+            <Footer />
+          </Route>
+          <Route path="/">
+            <Header />
+            <Home />
             <Footer />
           </Route>
         </Switch>
