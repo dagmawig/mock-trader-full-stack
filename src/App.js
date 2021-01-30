@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Home from './components/Home';
 import Footer from './components/Footer';
 import Search from './components/Search';
+import History from './components/History';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           </Route>
           <Route path="/">
             <Header />
-            <Search />
+            <History />
             <Footer />
           </Route>
         </Switch>
