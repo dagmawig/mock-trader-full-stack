@@ -16,8 +16,8 @@ function App() {
           </Route>
           <Route path="/">
             <Header />
-            <Search/>
-            <Footer/>
+            <Search />
+            <Footer />
           </Route>
         </Switch>
       </div>

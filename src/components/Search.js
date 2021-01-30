@@ -5,6 +5,9 @@ function Search() {
     return (
         <div className="search container">
             <div className="search_row row">
+                <div className="search_input_section row">
+                    <input className="search_input" type="text" placeholder="stock ticker symbol"></input><button className="search_button"><i className="fa fa-search" ></i></button>
+                </div>
                 <div className="search_header row">
                     <div className="search_header_title col-12">
                         BA
@@ -50,7 +53,7 @@ function Search() {
                         </div>
                     </div>
                     <div className="search_buy col-6">
-                        <button className="search_button">
+                        <button className="search_buy_button">
                             Buy
                         </button>
                     </div>
