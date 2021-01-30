@@ -59,9 +59,9 @@ function Search() {
                             $1000.00
                         </div>
                     </div>
-                    <div className="search_buy col-6">
-                        <button className="search_buy_button">
-                            Buy
+                    <div className="search_trade col-6">
+                        <button className="search_trade_button">
+                            Trade
                         </button>
                     </div>
                 </div>
