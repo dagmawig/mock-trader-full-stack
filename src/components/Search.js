@@ -9,11 +9,18 @@ function Search() {
                     <input className="search_input" type="text" placeholder="stock ticker symbol"></input><button className="search_button"><i className="fa fa-search" ></i></button>
                 </div>
                 <div className="search_header row">
-                    <div className="search_header_title col-12">
-                        BA
-                    </div>
-                    <div className="search_header_price col-12">
+                    <div className="search_header_detail col-6">
+                        <div className="search_header_title row">
+                            BA
+                        </div>
+                        <div className="search_header_price row">
                         $297.05
+                        </div>
+                    </div>
+                    <div className="search_add col-6">
+                        <button className="search_add_button">
+                        <i className="fa fa-plus-circle fa-3x"></i>
+                        </button>
                     </div>
                 </div>
                 <div className="search_position row">
