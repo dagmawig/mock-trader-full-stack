@@ -5,7 +5,7 @@ import { useStateValue } from './StateWrap';
 
 function Search() {
     const [ticker, getTicker] = useState('');
-    const [{ search }, dispatch] = useStateValue();
+    const [{ user, search }, dispatch] = useStateValue();
 
     const searchStock = (e) => {
 
@@ -39,22 +39,30 @@ function Search() {
                 <div className="search_input_section row">
                     <input className="search_input" type="text" value={ticker} onChange={(e) => getTicker(e.target.value)} placeholder="stock ticker symbol"></input><button className="search_button" onClick={searchStock}><i className="fa fa-search" ></i></button>
                 </div>
-                <div className="search_header row">
-                    <div className="search_header_detail col-6">
-                        <div className="search_header_title row">
-                            {search.ticker}
+                {(search.ticker) ?
+                    (
+                        <div className="search_header row">
+                            <div className="search_header_detail col-6">
+                                <div className="search_header_title row">
+                                    {search.ticker}
+                                </div>
+                                <div className="search_header_price row">
+                                    {search.price}
+                                </div>
+                            </div>
+                            <div className="search_add col-6">
+                                <button className="search_add_button">
+                                    <i className="fa fa-plus-circle fa-3x"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div className="search_header_price row">
-                            {search.price}
-                        </div>
-                    </div>
-                    <div className="search_add col-6">
-                        <button className="search_add_button">
-                            <i className="fa fa-plus-circle fa-3x"></i>
-                        </button>
-                    </div>
-                </div>
-                <div className="search_position row">
+                    ) : null
+                }
+
+                {
+                    (user) ?
+                    (
+                        <div className="search_position row">
                     <div className="search_position_title col-12">
                         POSITION
                     </div>
@@ -96,6 +104,10 @@ function Search() {
                         </button>
                     </div>
                 </div>
+                    ) :
+                    null
+                }
+
             </div>
         </div>
     );
