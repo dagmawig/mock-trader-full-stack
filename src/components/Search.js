@@ -1,25 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Search.css';
+import axios from 'axios';
+import { useStateValue } from './StateWrap';
 
 function Search() {
+    const [ticker, getTicker] = useState('');
+    const [{ search }, dispatch] = useStateValue();
+
+    const searchStock = (e) => {
+
+        e.preventDefault();
+
+        if (!ticker.split(' ').join('')) alert('ticker field is empty');
+        else {
+            async function searchTicker() {
+                let url = 'https://mock-trader.glitch.me/getPrice/' + ticker;
+                let res = await axios.get(url);
+                return res;
+            }
+            searchTicker()
+                .then((res => {
+                    console.log(res.data);
+                    dispatch({
+                        type: 'SET_SEARCH',
+                        search: {
+                            ticker: ticker.toUpperCase(),
+                            price: res.data.price
+                        }
+                    })
+                }))
+        }
+
+
+    }
     return (
         <div className="search container">
             <div className="search_row row">
                 <div className="search_input_section row">
-                    <input className="search_input" type="text" placeholder="stock ticker symbol"></input><button className="search_button"><i className="fa fa-search" ></i></button>
+                    <input className="search_input" type="text" value={ticker} onChange={(e) => getTicker(e.target.value)} placeholder="stock ticker symbol"></input><button className="search_button" onClick={searchStock}><i className="fa fa-search" ></i></button>
                 </div>
                 <div className="search_header row">
                     <div className="search_header_detail col-6">
                         <div className="search_header_title row">
-                            BA
+                            {search.ticker}
                         </div>
                         <div className="search_header_price row">
-                        $297.05
+                            {search.price}
                         </div>
                     </div>
                     <div className="search_add col-6">
                         <button className="search_add_button">
-                        <i className="fa fa-plus-circle fa-3x"></i>
+                            <i className="fa fa-plus-circle fa-3x"></i>
                         </button>
                     </div>
                 </div>
