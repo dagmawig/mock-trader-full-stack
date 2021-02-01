@@ -3,15 +3,53 @@ import './Search.css';
 import axios from 'axios';
 import { useStateValue } from './StateWrap';
 
+
 function Search() {
     const [ticker, getTicker] = useState('');
-    const [{ user, search }, dispatch] = useStateValue();
+    const [{ userID, search, watchlist }, dispatch] = useStateValue();
+    let plusButtonClass = (!watchlist.includes(ticker.toUpperCase()))? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
 
+    const updateWatchlist = (e) => {
+
+        e.preventDefault();
+
+        if(!watchlist.includes(ticker.toUpperCase())) {
+            watchlist.push(ticker.toUpperCase());
+        }
+        else {
+            let index = watchlist.indexOf(ticker.toUpperCase());
+            watchlist.splice(index, 1);
+        }
+
+        async function setWatchlist() {
+            let res = await axios.post('https://mock-trader.glitch.me/updateWatchlist', { userID: userID, newWatchlist: watchlist })
+            return res;
+        }
+        setWatchlist()
+            .then((res) => {
+                console.log(res.data);
+                plusButtonClass = (!res.data.watchlist.includes(ticker.toUpperCase()))? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
+                dispatch({
+                    type: 'UPDATE_WATCHLIST',
+                    watchlist: res.data.watchlist
+                })
+            })
+    }
     const searchStock = (e) => {
 
         e.preventDefault();
 
         if (!ticker.split(' ').join('')) alert('ticker field is empty');
+        else if (ticker === 'user') {
+            async function newUser() {
+                let res = await axios.post('https://mock-trader.glitch.me/createUser', { userID: userID })
+                return res;
+            }
+            newUser()
+                .then((res) => {
+                    console.log(res.data);
+                });
+        }
         else {
             async function searchTicker() {
                 let url = 'https://mock-trader.glitch.me/getPrice/' + ticker;
@@ -51,8 +89,8 @@ function Search() {
                                 </div>
                             </div>
                             <div className="search_add col-6">
-                                <button className="search_add_button">
-                                    <i className="fa fa-plus-circle fa-3x"></i>
+                                <button className="search_add_button" onClick={updateWatchlist}>
+                                    <i className={plusButtonClass}></i>
                                 </button>
                             </div>
                         </div>
@@ -60,52 +98,52 @@ function Search() {
                 }
 
                 {
-                    (user) ?
-                    (
-                        <div className="search_position row">
-                    <div className="search_position_title col-12">
-                        POSITION
+                    (userID) ?
+                        (
+                            <div className="search_position row">
+                                <div className="search_position_title col-12">
+                                    POSITION
                     </div>
-                    <div className="search_shares col-6">
-                        <div className="search_shares_top row">
-                            Shares
+                                <div className="search_shares col-6">
+                                    <div className="search_shares_top row">
+                                        Shares
                         </div>
-                        <div className="search_shares_bottom row">
-                            20
+                                    <div className="search_shares_bottom row">
+                                        20
                         </div>
-                    </div>
-                    <div className="search_value col-6">
-                        <div className="search_value_top row">
-                            Market Value
+                                </div>
+                                <div className="search_value col-6">
+                                    <div className="search_value_top row">
+                                        Market Value
                         </div>
-                        <div className="search_value_bottom row">
-                            $12,000.00
+                                    <div className="search_value_bottom row">
+                                        $12,000.00
                         </div>
-                    </div>
-                    <div className="search_cost col-12">
-                        <div className="search_cost_top row">
-                            Average Cost
+                                </div>
+                                <div className="search_cost col-12">
+                                    <div className="search_cost_top row">
+                                        Average Cost
                         </div>
-                        <div className="search_cost_bottom row">
-                            $185.00
+                                    <div className="search_cost_bottom row">
+                                        $185.00
                         </div>
-                    </div>
-                    <div className="search_return col-6">
-                        <div className="search_return_top row">
-                            Total Return
+                                </div>
+                                <div className="search_return col-6">
+                                    <div className="search_return_top row">
+                                        Total Return
                         </div>
-                        <div className="search_return_bottom row">
-                            $1000.00
+                                    <div className="search_return_bottom row">
+                                        $1000.00
                         </div>
-                    </div>
-                    <div className="search_trade col-6">
-                        <button className="search_trade_button">
-                            Trade
+                                </div>
+                                <div className="search_trade col-6">
+                                    <button className="search_trade_button">
+                                        Trade
                         </button>
-                    </div>
-                </div>
-                    ) :
-                    null
+                                </div>
+                            </div>
+                        ) :
+                        null
                 }
 
             </div>

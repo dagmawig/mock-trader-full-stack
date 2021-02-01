@@ -1,9 +1,13 @@
 export const initialState = {
-    user: null,
+    userID: 'dag',
     search: {ticker: '', price: ''},
+    watchlist: [],
+    portfolio: {},
 };
 
 const reducer = (state, action) => {
+    console.log(action.watchlist);
+    
     switch (action.type) {
         case "SET_USER":
             return {
@@ -12,6 +16,10 @@ const reducer = (state, action) => {
         case "SET_SEARCH":
             return {
                 ...state, search: action.search
+            };
+        case "UPDATE_WATCHLIST":
+            return {
+                ...state, watchlist: action.watchlist
             };
         default:
             return state;

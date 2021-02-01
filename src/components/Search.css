@@ -72,7 +72,7 @@ input:focus::placeholder {
     width: 100%;
     margin: 0px;
     padding: 12px;
-    border-bottom: white dashed 2px;
+    border-top: white dashed 2px;
 }
 .search_header_title {
     font-size: 20pt;
@@ -95,14 +95,14 @@ input:focus::placeholder {
     height: 40px;
     background-color: black;
     border: none;
-    border-radius: 20px;
+    border-radius: 25px;
     outline: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.fa-plus-circle {
+.fa-plus-square, .fa-minus-square {
     color: purple;
 }
 .search_position_title {
