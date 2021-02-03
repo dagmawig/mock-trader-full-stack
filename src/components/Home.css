@@ -73,8 +73,15 @@
     justify-content: space-between; 
     border-top: dotted limegreen 1px;
 }
-.home_watchlist_button {
+.home_watchlist_link {
     color: white;
+    display: flex;
+    width: 100%;
+    margin: 0px;
+    align-items: center;
+    justify-content: space-between; 
+}
+.home_watchlist_button {
     display: flex;
     width: 100%;
     margin: 0px;

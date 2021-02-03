@@ -1,28 +1,62 @@
 import React from 'react';
 import './Home.css';
 import { useStateValue } from './StateWrap';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 
 function Home() {
 
     const [{ watchlist }, dispatch] = useStateValue();
 
+    const searchStock = (e) => {
 
+        e.preventDefault();
+
+        const ticker = e.currentTarget.value;
+        console.log(ticker);
+        async function searchTicker() {
+            let url = 'https://mock-trader.glitch.me/getPrice/' + ticker;
+            let res = await axios.get(url);
+            return res;
+        }
+        searchTicker()
+            .then((res => {
+
+                console.log(res.data);
+                if (res.data.price == "") { alert("No such stock exists!"); }
+                else {
+                    dispatch({
+                        type: 'SET_SEARCH',
+                        search: {
+                            ticker: ticker.toUpperCase(),
+                            price: res.data.price,
+                            plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
+                            searchedTicker: ticker.toUpperCase()
+                        }
+                    })
+                }
+
+            }))
+    }
 
     const watchlistDiv = watchlist.ticker.map((ticker, i) => {
         return (
             <div className="home_stock row" key={i + 'wl'}>
-                <button className="home_watchlist_button" value={ticker}>
-                    <div className="home_stock_ticker col-6">
-                        {ticker}
-                    </div>
-                    <div className="home_stock_price col-6">
-                        ${watchlist.price[i]}
-                    </div>
-                </button>
-
+                    <button className="home_watchlist_button" value={ticker} onClick={searchStock}>
+                    <Link to="/search" className="home_watchlist_link" >
+                        <div className="home_stock_ticker col-6">
+                            {ticker}
+                        </div>
+                        <div className="home_stock_price col-6">
+                            ${watchlist.price[i]}
+                        </div>
+                        </Link>
+                    </button>
             </div>
         );
     })
+
 
 
     return (
