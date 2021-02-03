@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Footer from './components/Footer';
 import Search from './components/Search';
 import History from './components/History';
+import Loading from './components/Loading';
 
 function App() {
   return (
@@ -13,20 +14,24 @@ function App() {
       <div className="App">
         <Switch>
           <Route path="/login">
+            <Loading />
             <Login />
           </Route>
           <Route path="/search">
             <Header />
+            <Loading />
             <Search />
             <Footer />
           </Route>
           <Route path="/history">
             <Header />
+            <Loading />
             <History />
             <Footer />
           </Route>
           <Route path="/">
             <Header />
+            <Loading />
             <Home />
             <Footer />
           </Route>

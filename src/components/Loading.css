@@ -1,0 +1,38 @@
+.loading {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 100px 50px;
+    background-color: transparent;
+    z-index: 25;
+}
+.loading_row {
+    background-color: lightgreen;
+    opacity: .5;
+    margin: 30% auto; 
+    padding: 25px;
+    border: 1px solid #888;
+    width: 80%; 
+    height: 100%;
+    width: 100%;
+    display:flex;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+}
+.fa-spinner {
+    position: fixed;
+    margin:0;
+    margin-bottom: 80px;;
+    padding: 0;
+}
+.text {
+    margin:0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    color: blue;
+}

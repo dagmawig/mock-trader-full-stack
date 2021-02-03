@@ -26,6 +26,11 @@ function Search() {
             watchlist.price.splice(index, 1);
         }
 
+        dispatch({
+            type: 'TOGGLE_LOADING',
+            loadingDisplay: 'block'
+        })
+
         async function setWatchlist() {
             let res = await axios.post('https://mock-trader.glitch.me/updateWatchlist', { userID: userID, newWatchlist: watchlist })
             return res;
@@ -36,7 +41,11 @@ function Search() {
                 search.plusButtonClass = (!res.data.watchlist.ticker.includes(search.searchedTicker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
                 dispatch({
                     type: 'UPDATE_WATCHLIST',
-                    watchlist: res.data.watchlist
+                    watchlist: res.data.watchlist,
+                })
+                dispatch({
+                    type: 'TOGGLE_LOADING',
+                    loadingDisplay: 'none'
                 })
             })
     }
@@ -56,6 +65,12 @@ function Search() {
                 });
         }
         else {
+
+            dispatch({
+                type: 'TOGGLE_LOADING',
+                loadingDisplay: 'block'
+            })
+
             async function searchTicker() {
                 let url = 'https://mock-trader.glitch.me/getPrice/' + ticker;
                 let res = await axios.get(url);
@@ -75,6 +90,10 @@ function Search() {
                                 plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
                                 searchedTicker: ticker.toUpperCase()
                             }
+                        })
+                        dispatch({
+                            type: 'TOGGLE_LOADING',
+                            loadingDisplay: 'none'
                         })
                     }
 

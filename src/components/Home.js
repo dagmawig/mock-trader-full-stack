@@ -15,6 +15,11 @@ function Home() {
 
         const ticker = e.currentTarget.value;
         console.log(ticker);
+
+        dispatch({
+            type: 'TOGGLE_LOADING',
+            loadingDisplay: 'block'
+        })
         async function searchTicker() {
             let url = 'https://mock-trader.glitch.me/getPrice/' + ticker;
             let res = await axios.get(url);
@@ -32,8 +37,12 @@ function Home() {
                             ticker: ticker.toUpperCase(),
                             price: res.data.price,
                             plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
-                            searchedTicker: ticker.toUpperCase()
+                            searchedTicker: ticker.toUpperCase(),
                         }
+                    })
+                    dispatch({
+                        type: 'TOGGLE_LOADING',
+                        loadingDisplay: 'none'
                     })
                 }
 

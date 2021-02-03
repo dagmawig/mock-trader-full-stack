@@ -1,5 +1,6 @@
 export const initialState = {
     userID: 'dag',
+    loadingDisplay: 'none',
     search: {ticker: '', price: '', plusButtonClass: '', searchedTicker: ''},
     watchlist: {
         ticker: [],
@@ -24,6 +25,10 @@ const reducer = (state, action) => {
             return {
                 ...state, watchlist: action.watchlist
             };
+        case "TOGGLE_LOADING":
+            return {
+                ...state, loadingDisplay: action.loadingDisplay
+            }
         default:
             return state;
     }
