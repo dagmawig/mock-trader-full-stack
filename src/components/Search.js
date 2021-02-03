@@ -116,7 +116,7 @@ function Search() {
                                     {search.ticker}
                                 </div>
                                 <div className="search_header_price row">
-                                    {search.price}
+                                    ${search.price}
                                 </div>
                             </div>
                             <div className="search_add col-6">
