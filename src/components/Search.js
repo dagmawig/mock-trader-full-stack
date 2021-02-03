@@ -16,12 +16,14 @@ function Search() {
 
         e.preventDefault();
 
-        if (!watchlist.includes(searchedTicker.toUpperCase())) {
-            watchlist.push(searchedTicker.toUpperCase());
+        if (!watchlist.ticker.includes(searchedTicker.toUpperCase())) {
+            watchlist.ticker.push(searchedTicker.toUpperCase());
+            watchlist.price.push(search.price);
         }
         else {
-            let index = watchlist.indexOf(searchedTicker.toUpperCase());
-            watchlist.splice(index, 1);
+            let index = watchlist.ticker.indexOf(searchedTicker.toUpperCase());
+            watchlist.ticker.splice(index, 1);
+            watchlist.price.splice(index, 1);
         }
 
         async function setWatchlist() {
@@ -31,7 +33,7 @@ function Search() {
         setWatchlist()
             .then((res) => {
                 console.log(res.data);
-                plusButtonClass = (!res.data.watchlist.includes(searchedTicker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
+                plusButtonClass = (!res.data.watchlist.ticker.includes(searchedTicker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
                 dispatch({
                     type: 'UPDATE_WATCHLIST',
                     watchlist: res.data.watchlist
@@ -41,7 +43,7 @@ function Search() {
     const searchStock = (e) => {
 
         e.preventDefault();
-        plusButtonClass = (!watchlist.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
+        plusButtonClass = (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
 
 
         if (!ticker.split(' ').join('')) alert('ticker field is empty');
