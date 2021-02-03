@@ -3,21 +3,24 @@ import './Search.css';
 import axios from 'axios';
 import { useStateValue } from './StateWrap';
 
+let plusButtonClass;
+let searchedTicker;
 
 function Search() {
     const [ticker, getTicker] = useState('');
     const [{ userID, search, watchlist }, dispatch] = useStateValue();
-    let plusButtonClass = (!watchlist.includes(ticker.toUpperCase()))? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
+
+
 
     const updateWatchlist = (e) => {
 
         e.preventDefault();
 
-        if(!watchlist.includes(ticker.toUpperCase())) {
-            watchlist.push(ticker.toUpperCase());
+        if (!watchlist.includes(searchedTicker.toUpperCase())) {
+            watchlist.push(searchedTicker.toUpperCase());
         }
         else {
-            let index = watchlist.indexOf(ticker.toUpperCase());
+            let index = watchlist.indexOf(searchedTicker.toUpperCase());
             watchlist.splice(index, 1);
         }
 
@@ -28,7 +31,7 @@ function Search() {
         setWatchlist()
             .then((res) => {
                 console.log(res.data);
-                plusButtonClass = (!res.data.watchlist.includes(ticker.toUpperCase()))? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
+                plusButtonClass = (!res.data.watchlist.includes(searchedTicker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
                 dispatch({
                     type: 'UPDATE_WATCHLIST',
                     watchlist: res.data.watchlist
@@ -38,6 +41,8 @@ function Search() {
     const searchStock = (e) => {
 
         e.preventDefault();
+        plusButtonClass = (!watchlist.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
+
 
         if (!ticker.split(' ').join('')) alert('ticker field is empty');
         else if (ticker === 'user') {
@@ -51,6 +56,7 @@ function Search() {
                 });
         }
         else {
+            searchedTicker = ticker;
             async function searchTicker() {
                 let url = 'https://mock-trader.glitch.me/getPrice/' + ticker;
                 let res = await axios.get(url);
@@ -58,14 +64,19 @@ function Search() {
             }
             searchTicker()
                 .then((res => {
+
                     console.log(res.data);
-                    dispatch({
-                        type: 'SET_SEARCH',
-                        search: {
-                            ticker: ticker.toUpperCase(),
-                            price: res.data.price
-                        }
-                    })
+                    if (res.data.price == "") { alert("No such stock exists!"); }
+                    else {
+                        dispatch({
+                            type: 'SET_SEARCH',
+                            search: {
+                                ticker: ticker.toUpperCase(),
+                                price: res.data.price
+                            }
+                        })
+                    }
+
                 }))
         }
 
