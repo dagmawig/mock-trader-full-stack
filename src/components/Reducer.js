@@ -1,6 +1,6 @@
 export const initialState = {
     userID: 'dag',
-    search: {ticker: '', price: ''},
+    search: {ticker: '', price: '', plusButtonClass: '', searchedTicker: ''},
     watchlist: {
         ticker: [],
         price: []

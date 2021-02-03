@@ -3,8 +3,8 @@ import './Search.css';
 import axios from 'axios';
 import { useStateValue } from './StateWrap';
 
-let plusButtonClass;
-let searchedTicker;
+//let plusButtonClass;
+//let searchedTicker;
 
 function Search() {
     const [ticker, getTicker] = useState('');
@@ -16,12 +16,12 @@ function Search() {
 
         e.preventDefault();
 
-        if (!watchlist.ticker.includes(searchedTicker.toUpperCase())) {
-            watchlist.ticker.push(searchedTicker.toUpperCase());
+        if (!watchlist.ticker.includes(search.searchedTicker.toUpperCase())) {
+            watchlist.ticker.push(search.searchedTicker.toUpperCase());
             watchlist.price.push(search.price);
         }
         else {
-            let index = watchlist.ticker.indexOf(searchedTicker.toUpperCase());
+            let index = watchlist.ticker.indexOf(search.searchedTicker.toUpperCase());
             watchlist.ticker.splice(index, 1);
             watchlist.price.splice(index, 1);
         }
@@ -33,7 +33,7 @@ function Search() {
         setWatchlist()
             .then((res) => {
                 console.log(res.data);
-                plusButtonClass = (!res.data.watchlist.ticker.includes(searchedTicker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
+                search.plusButtonClass = (!res.data.watchlist.ticker.includes(search.searchedTicker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
                 dispatch({
                     type: 'UPDATE_WATCHLIST',
                     watchlist: res.data.watchlist
@@ -43,8 +43,6 @@ function Search() {
     const searchStock = (e) => {
 
         e.preventDefault();
-        plusButtonClass = (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
-
 
         if (!ticker.split(' ').join('')) alert('ticker field is empty');
         else if (ticker === 'user') {
@@ -58,7 +56,6 @@ function Search() {
                 });
         }
         else {
-            searchedTicker = ticker;
             async function searchTicker() {
                 let url = 'https://mock-trader.glitch.me/getPrice/' + ticker;
                 let res = await axios.get(url);
@@ -74,7 +71,9 @@ function Search() {
                             type: 'SET_SEARCH',
                             search: {
                                 ticker: ticker.toUpperCase(),
-                                price: res.data.price
+                                price: res.data.price,
+                                plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
+                                searchedTicker: ticker.toUpperCase()
                             }
                         })
                     }
@@ -103,7 +102,7 @@ function Search() {
                             </div>
                             <div className="search_add col-6">
                                 <button className="search_add_button" onClick={updateWatchlist}>
-                                    <i className={plusButtonClass}></i>
+                                    <i className={search.plusButtonClass}></i>
                                 </button>
                             </div>
                         </div>
