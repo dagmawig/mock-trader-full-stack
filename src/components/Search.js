@@ -85,7 +85,6 @@ function Search() {
                         dispatch({
                             type: 'SET_SEARCH',
                             search: {
-                                ticker: ticker.toUpperCase(),
                                 price: res.data.price,
                                 plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
                                 searchedTicker: ticker.toUpperCase()
@@ -108,12 +107,12 @@ function Search() {
                 <div className="search_input_section row">
                     <input className="search_input" type="text" value={ticker} onChange={(e) => getTicker(e.target.value)} placeholder="stock ticker symbol"></input><button className="search_button" onClick={searchStock}><i className="fa fa-search" ></i></button>
                 </div>
-                {(search.ticker) ?
+                {(search.searchedTicker) ?
                     (
                         <div className="search_header row">
                             <div className="search_header_detail col-6">
                                 <div className="search_header_title row">
-                                    {search.ticker}
+                                    {search.searchedTicker}
                                 </div>
                                 <div className="search_header_price row">
                                     ${search.price}

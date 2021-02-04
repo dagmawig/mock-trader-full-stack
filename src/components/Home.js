@@ -34,7 +34,6 @@ function Home() {
                     dispatch({
                         type: 'SET_SEARCH',
                         search: {
-                            ticker: ticker.toUpperCase(),
                             price: res.data.price,
                             plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
                             searchedTicker: ticker.toUpperCase(),
