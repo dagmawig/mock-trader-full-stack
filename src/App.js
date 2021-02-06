@@ -1,5 +1,8 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
+import { useStateValue } from './components/StateWrap';
+import { useEffect } from 'react';
+import axios from 'axios';
 import Login from './components/Login';
 import Header from './components/Header';
 import Home from './components/Home';
@@ -9,6 +12,43 @@ import History from './components/History';
 import Loading from './components/Loading';
 
 function App() {
+
+  //const [{ search, watchlist }, dispatch] = useStateValue();
+
+  // async function updatePrice() {
+  //   let res = await axios.post('https://mock-trader.glitch.me/updatePrice', { tickerArr: [search.searchedTicker].concat(watchlist.ticker) });
+  //   //return res;
+  //   console.log("useEffect");
+  //   if(search.searchedTicker === res.data.data.ticker[0] ){
+  //     console.log("dispatching");
+  //     dispatch({
+  //       type: 'SET_SEARCHP',
+  //       searchP: res.data.data.price[0]
+  //   })
+  //   }
+
+  // }
+
+  // useEffect(() => {
+
+  //   //updatePrice();
+
+  //   let interval = null;
+
+  //   if (search.searchedTicker !== '' || watchlist.ticker.length !== 0 ){
+  //     console.log('Hereeeee')
+  //     interval = setInterval (() => {
+  //       updatePrice()
+  //     }, 60000)
+  
+  //   }
+  //   else {
+  //     if(interval){
+  //       clearInterval(interval);
+  //     }
+  //   }
+  // })
+
   return (
     <Router>
       <div className="App">

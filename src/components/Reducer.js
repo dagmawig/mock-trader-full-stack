@@ -21,6 +21,10 @@ const reducer = (state, action) => {
             return {
                 ...state, search: action.search
             };
+        // case "SET_SEARCHP":
+        //     return {
+        //         ...state, search: {...state.search, price: action.searchP}
+        //     };
         case "UPDATE_WATCHLIST":
             return {
                 ...state, watchlist: action.watchlist
