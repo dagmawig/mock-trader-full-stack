@@ -1,7 +1,16 @@
 import React from 'react';
 import './Header.css';
+import { useStateValue } from './StateWrap';
 
 function Header() {
+
+    const [{ fund }] = useStateValue();
+
+    function formatNum(x) {
+        x = x.toFixed(2);
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     return (
         <div className="header container">
             <div className="header_row row">
@@ -10,7 +19,7 @@ function Header() {
                         Buying Power &emsp;<i className="fa fa-money"></i>
                     </div>
                     <div className="header_cash_bottom row">
-                        $1000.000
+                        ${formatNum(fund)}
                     </div>
                 </div>
                 <div className="header_stock col-5 col-sm-3">

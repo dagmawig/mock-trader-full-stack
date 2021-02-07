@@ -8,14 +8,17 @@ import { useStateValue } from './StateWrap';
 
 function Search() {
     const [ticker, getTicker] = useState('');
-    const [{ userID, search, watchlist }, dispatch] = useStateValue();
+    const [{ userID, search, watchlist, fund }, dispatch] = useStateValue();
     const [trade, startTrade] = useState(['Trade', 'purple', 'hidden']);
+    const [shareBuy, getBuyShare] = useState(0);
+    const [shareSell, getSellShare] = useState(0);
+    const [limitPrice, getLimitPrice] = useState(0);
+    const [limitOrder, getLimitOrder] = useState(0);
 
-    // function startTrade() {
-    //     trade=!trade;
-    //     console.log(trade)
-    // }
-
+    function formatNum(x) {
+        x = x.toFixed(2);
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
     function openBuy() {
         window.$('#buyModal').modal('show');
 
@@ -257,14 +260,14 @@ function Search() {
                                 <button type="button" className="close modal_close_button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" className="modal_x">&times;</span>
                                 </button>
-                                <p className="modal_fund col-12">$1,000 available</p>
+                                <p className="modal_fund col-12">${formatNum(fund)} available</p>
 
                             </div>
                             <div className="modal-body">
                                 <div className="modal_share">
                                     <div className="modal_share_text">Number of Shares</div>
                                     <div className="modal_share_input">
-                                        <input type="number" placeholder="0"></input>
+                                        <input type="number" placeholder="0" value={shareBuy} onChange={(e) => getBuyShare(e.target.value)}></input>
                                     </div>
                                 </div>
                                 <div className="modal_price">
@@ -275,7 +278,7 @@ function Search() {
                                 </div>
                                 <div className="modal_cost">
                                     <div className="modal_cost_text">Estimated Cost</div>
-                                    <div className="modal_cost_num">$2,079</div>
+                                    <div className="modal_cost_num">${formatNum(shareBuy*parseFloat(search.price))}</div>
                                 </div>
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
@@ -283,7 +286,7 @@ function Search() {
                                         <input type="checkbox" id="limitPrice"></input>
                                     </div>
                                     <div className="modal_limit_input">
-                                        <input type="number" placeholder="$"></input>
+                                        <input type="number" placeholder="$" value={limitPrice} onChange={(e) => getLimitPrice(e.target.value)}></input>
                                     </div>
                                 </div>
 
@@ -304,14 +307,14 @@ function Search() {
                                 <button type="button" className="close modal_close_button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" className="modal_x">&times;</span>
                                 </button>
-                                <p className="modal_fund col-12">$1,000 available</p>
+                                <p className="modal_fund col-12">${formatNum(fund)} available</p>
 
                             </div>
                             <div className="modal-body">
                                 <div className="modal_share">
                                     <div className="modal_share_text">Number of Shares</div>
                                     <div className="modal_share_input">
-                                        <input type="number" placeholder="0"></input>
+                                        <input type="number" placeholder="0" value={shareSell} onChange={(e) => getSellShare(e.target.value)}></input>
                                     </div>
                                 </div>
                                 <div className="modal_price">
@@ -322,7 +325,7 @@ function Search() {
                                 </div>
                                 <div className="modal_cost">
                                     <div className="modal_cost_text">Estimated Credit</div>
-                                    <div className="modal_cost_num">$2,079</div>
+                                    <div className="modal_cost_num">${formatNum(shareSell*parseFloat(search.price))}</div>
                                 </div>
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
@@ -330,7 +333,7 @@ function Search() {
                                         <input type="checkbox" id="limitPrice"></input>
                                     </div>
                                     <div className="modal_limit_input">
-                                        <input type="number" placeholder="$"></input>
+                                        <input type="number" placeholder="$" value={limitOrder} onChange={(e) => getLimitOrder(e.target.value)}></input>
                                     </div>
                                 </div>
 

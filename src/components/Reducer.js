@@ -1,13 +1,14 @@
 export const initialState = {
     userID: 'dag',
     loadingDisplay: 'none',
+    fund: 10000,
     search: { price: '', plusButtonClass: '', searchedTicker: '' },
     watchlist: {
         ticker: [],
         price: []
     },
     portfolio: {
-        
+
     },
 };
 
