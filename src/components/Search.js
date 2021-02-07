@@ -9,7 +9,12 @@ import { useStateValue } from './StateWrap';
 function Search() {
     const [ticker, getTicker] = useState('');
     const [{ userID, search, watchlist }, dispatch] = useStateValue();
+    const [trade, startTrade] = useState(['Trade', 'purple', 'hidden']);
 
+    // function startTrade() {
+    //     trade=!trade;
+    //     console.log(trade)
+    // }
 
 
     const updateWatchlist = (e) => {
@@ -167,9 +172,15 @@ function Search() {
                         </div>
                                 </div>
                                 <div className="search_trade col-6">
-                                    <button className="search_trade_button">
-                                        Trade
-                        </button>
+                                    <button className="search_trade_button search_sell" style={{ visibility: trade[2] }}>
+                                        Sell
+                                    </button>
+                                    <button className="search_trade_button search_buy" style={{ visibility: trade[2] }}>
+                                        Buy
+                                    </button>
+                                    <button className="search_trade_button search_trade_b" style={{ backgroundColor: trade[1] }} onClick={() => startTrade((trade[0] === 'Trade') ? ['X', 'grey', ''] : ['Trade', 'purple', 'hidden'])}>
+                                        {trade[0]}
+                                    </button>
                                 </div>
                             </div>
                         ) :

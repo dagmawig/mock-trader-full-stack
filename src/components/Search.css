@@ -125,7 +125,8 @@ input:focus::placeholder {
 .search_trade {
     display: flex;
     justify-content:flex-end;
-    align-items: center;
+    align-items: flex-end;
+    flex-direction: column;
     padding: 0px;
 }
 .search_trade_button {
@@ -137,6 +138,11 @@ input:focus::placeholder {
     cursor: pointer;
     font-size: 14pt;
     font-weight: 800;
+    margin: 1px 0;
+}
+.search_trade_button:focus {
+    outline: none;
+
 }
 
 
