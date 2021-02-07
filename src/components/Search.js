@@ -10,10 +10,10 @@ function Search() {
     const [ticker, getTicker] = useState('');
     const [{ userID, search, watchlist, fund, portfolio }, dispatch] = useStateValue();
     const [trade, startTrade] = useState(['Trade', 'purple', 'hidden']);
-    const [shareBuy, getBuyShare] = useState(0);
-    const [shareSell, getSellShare] = useState(0);
-    const [limitPrice, getLimitPrice] = useState(0);
-    const [limitOrder, getLimitOrder] = useState(0);
+    const [shareBuy, getBuyShare] = useState();
+    const [shareSell, getSellShare] = useState();
+    const [limitPrice, getLimitPrice] = useState();
+    const [limitOrder, getLimitOrder] = useState();
 
     function formatNum(x) {
         x = x.toFixed(2);
@@ -35,7 +35,7 @@ function Search() {
         searchTicker()
             .then((res) => {
 
-                let shares = (portfolio.ticker.includes(ticker.toUpperCase()))? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
+                let shares = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
 
                 let cost = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
 
@@ -73,7 +73,7 @@ function Search() {
         searchTicker()
             .then((res) => {
 
-                let shares = (portfolio.ticker.includes(ticker.toUpperCase()))? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
+                let shares = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
 
                 let cost = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
 
@@ -201,70 +201,70 @@ function Search() {
                 {(search.searchedTicker) ?
                     (
                         <>
-                        <div className="search_header row">
-                            <div className="search_header_detail col-6">
-                                <div className="search_header_title row">
-                                    {search.searchedTicker}
+                            <div className="search_header row">
+                                <div className="search_header_detail col-6">
+                                    <div className="search_header_title row">
+                                        {search.searchedTicker}
+                                    </div>
+                                    <div className="search_header_price row">
+                                        ${search.price}
+                                    </div>
                                 </div>
-                                <div className="search_header_price row">
-                                    ${search.price}
+                                <div className="search_add col-6">
+                                    <button className="search_add_button" onClick={updateWatchlist}>
+                                        <i className={search.plusButtonClass}></i>
+                                    </button>
                                 </div>
                             </div>
-                            <div className="search_add col-6">
-                                <button className="search_add_button" onClick={updateWatchlist}>
-                                    <i className={search.plusButtonClass}></i>
-                                </button>
-                            </div>
-                        </div>
-                         <div className="search_position row">
-                         <div className="search_position_title col-12">
-                             POSITION
+                            <div className="search_position row">
+                                <div className="search_position_title col-12">
+                                    POSITION
              </div>
-                         <div className="search_shares col-6">
-                             <div className="search_shares_top row">
-                                 Shares
+                                <div className="search_shares col-6">
+                                    <div className="search_shares_top row">
+                                        Shares
                  </div>
-                             <div className="search_shares_bottom row">
-                                 {search.shares}
+                                    <div className="search_shares_bottom row">
+                                        {search.shares}
+                                    </div>
+                                </div>
+                                <div className="search_value col-6">
+                                    <div className="search_value_top row">
+                                        Market Value
                  </div>
-                         </div>
-                         <div className="search_value col-6">
-                             <div className="search_value_top row">
-                                 Market Value
+                                    <div className="search_value_bottom row">
+                                        ${formatNum(search.shares * parseFloat(search.price))}
+                                    </div>
+                                </div>
+                                <div className="search_cost col-12">
+                                    <div className="search_cost_top row">
+                                        Average Cost
                  </div>
-                             <div className="search_value_bottom row">
-                                 ${formatNum(search.shares*parseFloat(search.price))}
+                                    <div className="search_cost_bottom row">
+                                        ${search.averCost}
+                                    </div>
+                                </div>
+                                <div className="search_return col-6">
+                                    <div className="search_return_top row">
+                                        Total Return
                  </div>
-                         </div>
-                         <div className="search_cost col-12">
-                             <div className="search_cost_top row">
-                                 Average Cost
-                 </div>
-                             <div className="search_cost_bottom row">
-                                 ${search.averCost}
-                 </div>
-                         </div>
-                         <div className="search_return col-6">
-                             <div className="search_return_top row">
-                                 Total Return
-                 </div>
-                             <div className="search_return_bottom row">
-                                 ${formatNum(search.shares*(parseFloat(search.price)-search.averCost))}
-                 </div>
-                         </div>
-                         <div className="search_trade col-6">
-                             <button className="search_trade_button search_sell" style={{ visibility: trade[2] }} onClick={openSell}>
-                                 Sell
+                                    <div className="search_return_bottom row">
+                                        ${formatNum(search.shares * (parseFloat(search.price) - search.averCost))}
+                                    </div>
+                                </div>
+                                <div className="search_trade col-6">
+                                    <button className="search_trade_button search_sell" style={{ visibility: trade[2] }} onClick={openSell}>
+                                        Sell
                              </button>
-                             <button className="search_trade_button search_buy" style={{ visibility: trade[2] }} onClick={openBuy}>
-                                 Buy
+                                    <button className="search_trade_button search_buy" style={{ visibility: trade[2] }} onClick={openBuy}>
+                                        Buy
                              </button>
-                             <button className="search_trade_button search_trade_b" style={{ backgroundColor: trade[1] }} onClick={() => startTrade((trade[0] === 'Trade') ? ['X', 'grey', ''] : ['Trade', 'purple', 'hidden'])}>
-                                 {trade[0]}
-                             </button>
-                         </div>
-                     </div>
-                     </>
+                                    <button className="search_trade_button search_trade_b" style={{ backgroundColor: trade[1] }} onClick={() => startTrade((trade[0] === 'Trade') ? ['X', 'grey', ''] : ['Trade', 'purple', 'hidden'])}>
+                                        {trade[0]}
+                                    </button>
+                                </div>
+                            </div>
+                        </>
                     ) : null
                 }
 
@@ -294,7 +294,7 @@ function Search() {
                                 </div>
                                 <div className="modal_cost">
                                     <div className="modal_cost_text">Estimated Cost</div>
-                                    <div className="modal_cost_num">${formatNum(shareBuy * parseFloat(search.price))}</div>
+                                    <div className="modal_cost_num">${(shareBuy)? formatNum(shareBuy * parseFloat(search.price)): 0}</div>
                                 </div>
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
@@ -341,7 +341,7 @@ function Search() {
                                 </div>
                                 <div className="modal_cost">
                                     <div className="modal_cost_text">Estimated Credit</div>
-                                    <div className="modal_cost_num">${formatNum(shareSell * parseFloat(search.price))}</div>
+                                    <div className="modal_cost_num">${(shareSell)?formatNum(shareSell * parseFloat(search.price)): 0}</div>
                                 </div>
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">

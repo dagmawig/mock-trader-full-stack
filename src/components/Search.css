@@ -179,6 +179,7 @@ input:focus::placeholder {
 .modal_share, .modal_price, .modal_cost, .modal_limit {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: 5px 0;
