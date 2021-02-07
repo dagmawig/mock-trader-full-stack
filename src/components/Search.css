@@ -146,8 +146,7 @@ input:focus::placeholder {
 }
 
 .modal {
-    padding: 10px
-
+    padding: 10px;
 }
 .modal-dialog {
     
@@ -197,6 +196,7 @@ input:focus::placeholder {
     color: black;
     background-color: lightgreen;
     border: none;
+    width: 8em;
 }
 #limitPrice {
     background-color: lightgreen;

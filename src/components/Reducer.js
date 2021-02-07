@@ -6,7 +6,9 @@ export const initialState = {
         ticker: [],
         price: []
     },
-    portfolio: {},
+    portfolio: {
+        
+    },
 };
 
 const reducer = (state, action) => {

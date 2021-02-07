@@ -18,9 +18,65 @@ function Search() {
 
     function openBuy() {
         window.$('#buyModal').modal('show');
+
+        dispatch({
+            type: 'TOGGLE_LOADING',
+            loadingDisplay: 'block'
+        })
+
+        async function searchTicker() {
+            let url = 'https://mock-trader.glitch.me/getPrice/' + search.searchedTicker;
+            let res = await axios.get(url);
+            return res;
+        }
+        searchTicker()
+            .then((res) => {
+                console.log("modalBuyPrice", res.data);
+                dispatch({
+                    type: 'SET_SEARCH',
+                    search: {
+                        price: res.data.price,
+                        plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
+                        searchedTicker: ticker.toUpperCase()
+                    }
+                })
+                dispatch({
+                    type: 'TOGGLE_LOADING',
+                    loadingDisplay: 'none'
+                })
+        
+            })
     }
     function openSell() {
         window.$('#sellModal').modal('show');
+
+        dispatch({
+            type: 'TOGGLE_LOADING',
+            loadingDisplay: 'block'
+        })
+
+        async function searchTicker() {
+            let url = 'https://mock-trader.glitch.me/getPrice/' + search.searchedTicker;
+            let res = await axios.get(url);
+            return res;
+        }
+        searchTicker()
+            .then((res) => {
+                console.log("modalBuyPrice", res.data);
+                dispatch({
+                    type: 'SET_SEARCH',
+                    search: {
+                        price: res.data.price,
+                        plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
+                        searchedTicker: ticker.toUpperCase()
+                    }
+                })
+                dispatch({
+                    type: 'TOGGLE_LOADING',
+                    loadingDisplay: 'none'
+                })
+        
+            })
     }
     const updateWatchlist = (e) => {
 
@@ -192,7 +248,7 @@ function Search() {
                         ) :
                         null
                 }
-                
+
                 <div className="modal" role="dialog" id="buyModal">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
@@ -208,14 +264,14 @@ function Search() {
                                 <div className="modal_share">
                                     <div className="modal_share_text">Number of Shares</div>
                                     <div className="modal_share_input">
-                                        <input type="text" placeholder="0" size="10"></input>
+                                        <input type="number" placeholder="0"></input>
                                     </div>
                                 </div>
                                 <div className="modal_price">
                                     <div className="modal_price_text">
                                         Market Price
                                     </div>
-                                    <div className="modal_price_num">$207.9</div>
+                                    <div className="modal_price_num">${search.price}</div>
                                 </div>
                                 <div className="modal_cost">
                                     <div className="modal_cost_text">Estimated Cost</div>
@@ -227,7 +283,7 @@ function Search() {
                                         <input type="checkbox" id="limitPrice"></input>
                                     </div>
                                     <div className="modal_limit_input">
-                                        <input type="text" placeholder="$" size="10"></input>
+                                        <input type="number" placeholder="$"></input>
                                     </div>
                                 </div>
 
@@ -255,14 +311,14 @@ function Search() {
                                 <div className="modal_share">
                                     <div className="modal_share_text">Number of Shares</div>
                                     <div className="modal_share_input">
-                                        <input type="text" placeholder="0" size="10"></input>
+                                        <input type="number" placeholder="0"></input>
                                     </div>
                                 </div>
                                 <div className="modal_price">
                                     <div className="modal_price_text">
                                         Market Price
                                     </div>
-                                    <div className="modal_price_num">$207.9</div>
+                                    <div className="modal_price_num">${search.price}</div>
                                 </div>
                                 <div className="modal_cost">
                                     <div className="modal_cost_text">Estimated Credit</div>
@@ -274,7 +330,7 @@ function Search() {
                                         <input type="checkbox" id="limitPrice"></input>
                                     </div>
                                     <div className="modal_limit_input">
-                                        <input type="text" placeholder="$" size="10"></input>
+                                        <input type="number" placeholder="$"></input>
                                     </div>
                                 </div>
 
