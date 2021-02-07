@@ -8,7 +8,7 @@ import { useStateValue } from './StateWrap';
 
 function Search() {
     const [ticker, getTicker] = useState('');
-    const [{ userID, search, watchlist, fund }, dispatch] = useStateValue();
+    const [{ userID, search, watchlist, fund, portfolio }, dispatch] = useStateValue();
     const [trade, startTrade] = useState(['Trade', 'purple', 'hidden']);
     const [shareBuy, getBuyShare] = useState(0);
     const [shareSell, getSellShare] = useState(0);
@@ -34,20 +34,27 @@ function Search() {
         }
         searchTicker()
             .then((res) => {
+
+                let shares = (portfolio.ticker.includes(ticker.toUpperCase()))? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
+
+                let cost = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
+
                 console.log("modalBuyPrice", res.data);
                 dispatch({
                     type: 'SET_SEARCH',
                     search: {
                         price: res.data.price,
                         plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
-                        searchedTicker: ticker.toUpperCase()
+                        searchedTicker: ticker.toUpperCase(),
+                        shares: shares,
+                        averCost: cost
                     }
                 })
                 dispatch({
                     type: 'TOGGLE_LOADING',
                     loadingDisplay: 'none'
                 })
-        
+
             })
     }
     function openSell() {
@@ -65,20 +72,27 @@ function Search() {
         }
         searchTicker()
             .then((res) => {
+
+                let shares = (portfolio.ticker.includes(ticker.toUpperCase()))? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
+
+                let cost = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
+
                 console.log("modalBuyPrice", res.data);
                 dispatch({
                     type: 'SET_SEARCH',
                     search: {
                         price: res.data.price,
                         plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
-                        searchedTicker: ticker.toUpperCase()
+                        searchedTicker: ticker.toUpperCase(),
+                        shares: shares,
+                        averCost: cost
                     }
                 })
                 dispatch({
                     type: 'TOGGLE_LOADING',
                     loadingDisplay: 'none'
                 })
-        
+
             })
     }
     const updateWatchlist = (e) => {
@@ -151,12 +165,19 @@ function Search() {
                     console.log(res.data);
                     if (res.data.price == "") { alert("No such stock exists!"); }
                     else {
+
+                        let shares = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
+
+                        let cost = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
+
                         dispatch({
                             type: 'SET_SEARCH',
                             search: {
                                 price: res.data.price,
                                 plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
-                                searchedTicker: ticker.toUpperCase()
+                                searchedTicker: ticker.toUpperCase(),
+                                shares: shares,
+                                averCost: cost
                             }
                         })
                         dispatch({
@@ -179,6 +200,7 @@ function Search() {
                 </div>
                 {(search.searchedTicker) ?
                     (
+                        <>
                         <div className="search_header row">
                             <div className="search_header_detail col-6">
                                 <div className="search_header_title row">
@@ -194,62 +216,56 @@ function Search() {
                                 </button>
                             </div>
                         </div>
+                         <div className="search_position row">
+                         <div className="search_position_title col-12">
+                             POSITION
+             </div>
+                         <div className="search_shares col-6">
+                             <div className="search_shares_top row">
+                                 Shares
+                 </div>
+                             <div className="search_shares_bottom row">
+                                 {search.shares}
+                 </div>
+                         </div>
+                         <div className="search_value col-6">
+                             <div className="search_value_top row">
+                                 Market Value
+                 </div>
+                             <div className="search_value_bottom row">
+                                 ${formatNum(search.shares*parseFloat(search.price))}
+                 </div>
+                         </div>
+                         <div className="search_cost col-12">
+                             <div className="search_cost_top row">
+                                 Average Cost
+                 </div>
+                             <div className="search_cost_bottom row">
+                                 ${search.averCost}
+                 </div>
+                         </div>
+                         <div className="search_return col-6">
+                             <div className="search_return_top row">
+                                 Total Return
+                 </div>
+                             <div className="search_return_bottom row">
+                                 ${formatNum(search.shares*(parseFloat(search.price)-search.averCost))}
+                 </div>
+                         </div>
+                         <div className="search_trade col-6">
+                             <button className="search_trade_button search_sell" style={{ visibility: trade[2] }} onClick={openSell}>
+                                 Sell
+                             </button>
+                             <button className="search_trade_button search_buy" style={{ visibility: trade[2] }} onClick={openBuy}>
+                                 Buy
+                             </button>
+                             <button className="search_trade_button search_trade_b" style={{ backgroundColor: trade[1] }} onClick={() => startTrade((trade[0] === 'Trade') ? ['X', 'grey', ''] : ['Trade', 'purple', 'hidden'])}>
+                                 {trade[0]}
+                             </button>
+                         </div>
+                     </div>
+                     </>
                     ) : null
-                }
-
-                {
-                    (userID) ?
-                        (
-                            <div className="search_position row">
-                                <div className="search_position_title col-12">
-                                    POSITION
-                    </div>
-                                <div className="search_shares col-6">
-                                    <div className="search_shares_top row">
-                                        Shares
-                        </div>
-                                    <div className="search_shares_bottom row">
-                                        20
-                        </div>
-                                </div>
-                                <div className="search_value col-6">
-                                    <div className="search_value_top row">
-                                        Market Value
-                        </div>
-                                    <div className="search_value_bottom row">
-                                        $12,000.00
-                        </div>
-                                </div>
-                                <div className="search_cost col-12">
-                                    <div className="search_cost_top row">
-                                        Average Cost
-                        </div>
-                                    <div className="search_cost_bottom row">
-                                        $185.00
-                        </div>
-                                </div>
-                                <div className="search_return col-6">
-                                    <div className="search_return_top row">
-                                        Total Return
-                        </div>
-                                    <div className="search_return_bottom row">
-                                        $1000.00
-                        </div>
-                                </div>
-                                <div className="search_trade col-6">
-                                    <button className="search_trade_button search_sell" style={{ visibility: trade[2] }} onClick={openSell}>
-                                        Sell
-                                    </button>
-                                    <button className="search_trade_button search_buy" style={{ visibility: trade[2] }} onClick={openBuy}>
-                                        Buy
-                                    </button>
-                                    <button className="search_trade_button search_trade_b" style={{ backgroundColor: trade[1] }} onClick={() => startTrade((trade[0] === 'Trade') ? ['X', 'grey', ''] : ['Trade', 'purple', 'hidden'])}>
-                                        {trade[0]}
-                                    </button>
-                                </div>
-                            </div>
-                        ) :
-                        null
                 }
 
                 <div className="modal" role="dialog" id="buyModal">
@@ -278,7 +294,7 @@ function Search() {
                                 </div>
                                 <div className="modal_cost">
                                     <div className="modal_cost_text">Estimated Cost</div>
-                                    <div className="modal_cost_num">${formatNum(shareBuy*parseFloat(search.price))}</div>
+                                    <div className="modal_cost_num">${formatNum(shareBuy * parseFloat(search.price))}</div>
                                 </div>
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
@@ -307,7 +323,7 @@ function Search() {
                                 <button type="button" className="close modal_close_button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" className="modal_x">&times;</span>
                                 </button>
-                                <p className="modal_fund col-12">${formatNum(fund)} available</p>
+                                <p className="modal_fund col-12">{search.shares} shares available</p>
 
                             </div>
                             <div className="modal-body">
@@ -325,7 +341,7 @@ function Search() {
                                 </div>
                                 <div className="modal_cost">
                                     <div className="modal_cost_text">Estimated Credit</div>
-                                    <div className="modal_cost_num">${formatNum(shareSell*parseFloat(search.price))}</div>
+                                    <div className="modal_cost_num">${formatNum(shareSell * parseFloat(search.price))}</div>
                                 </div>
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
