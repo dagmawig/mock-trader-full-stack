@@ -233,7 +233,7 @@ function Search() {
                                         Market Value
                  </div>
                                     <div className="search_value_bottom row">
-                                        ${formatNum(search.shares * parseFloat(search.price))}
+                                        ${formatNum(search.shares * parseFloat(search.price.replace(',', '')))}
                                     </div>
                                 </div>
                                 <div className="search_cost col-12">
@@ -249,7 +249,7 @@ function Search() {
                                         Total Return
                  </div>
                                     <div className="search_return_bottom row">
-                                        ${formatNum(search.shares * (parseFloat(search.price) - search.averCost))}
+                                        ${formatNum(search.shares * (parseFloat(search.price.replace(',', '')) - search.averCost))}
                                     </div>
                                 </div>
                                 <div className="search_trade col-6">
@@ -294,7 +294,7 @@ function Search() {
                                 </div>
                                 <div className="modal_cost">
                                     <div className="modal_cost_text">Estimated Cost</div>
-                                    <div className="modal_cost_num">${(shareBuy)? formatNum(shareBuy * parseFloat(search.price)): 0}</div>
+                                    <div className="modal_cost_num">${(shareBuy)? formatNum(shareBuy * parseFloat(search.price.replace(',', ''))): 0}</div>
                                 </div>
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
@@ -341,7 +341,7 @@ function Search() {
                                 </div>
                                 <div className="modal_cost">
                                     <div className="modal_cost_text">Estimated Credit</div>
-                                    <div className="modal_cost_num">${(shareSell)?formatNum(shareSell * parseFloat(search.price)): 0}</div>
+                                    <div className="modal_cost_num">${(shareSell)?formatNum(shareSell * parseFloat(search.price.replace(',', ''))): 0}</div>
                                 </div>
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
