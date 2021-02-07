@@ -16,7 +16,12 @@ function Search() {
     //     console.log(trade)
     // }
 
-
+    function openBuy() {
+        window.$('#buyModal').modal('show');
+    }
+    function openSell() {
+        window.$('#sellModal').modal('show');
+    }
     const updateWatchlist = (e) => {
 
         e.preventDefault();
@@ -99,6 +104,7 @@ function Search() {
                             type: 'TOGGLE_LOADING',
                             loadingDisplay: 'none'
                         })
+                        startTrade(['Trade', 'purple', 'hidden']);
                     }
 
                 }))
@@ -172,10 +178,10 @@ function Search() {
                         </div>
                                 </div>
                                 <div className="search_trade col-6">
-                                    <button className="search_trade_button search_sell" style={{ visibility: trade[2] }}>
+                                    <button className="search_trade_button search_sell" style={{ visibility: trade[2] }} onClick={openSell}>
                                         Sell
                                     </button>
-                                    <button className="search_trade_button search_buy" style={{ visibility: trade[2] }}>
+                                    <button className="search_trade_button search_buy" style={{ visibility: trade[2] }} onClick={openBuy}>
                                         Buy
                                     </button>
                                     <button className="search_trade_button search_trade_b" style={{ backgroundColor: trade[1] }} onClick={() => startTrade((trade[0] === 'Trade') ? ['X', 'grey', ''] : ['Trade', 'purple', 'hidden'])}>
@@ -186,6 +192,100 @@ function Search() {
                         ) :
                         null
                 }
+                
+                <div className="modal" role="dialog" id="buyModal">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header row">
+                                <h3 className="modal-title">Buy {search.searchedTicker}</h3>
+                                <button type="button" className="close modal_close_button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" className="modal_x">&times;</span>
+                                </button>
+                                <p className="modal_fund col-12">$1,000 available</p>
+
+                            </div>
+                            <div className="modal-body">
+                                <div className="modal_share">
+                                    <div className="modal_share_text">Number of Shares</div>
+                                    <div className="modal_share_input">
+                                        <input type="text" placeholder="0" size="10"></input>
+                                    </div>
+                                </div>
+                                <div className="modal_price">
+                                    <div className="modal_price_text">
+                                        Market Price
+                                    </div>
+                                    <div className="modal_price_num">$207.9</div>
+                                </div>
+                                <div className="modal_cost">
+                                    <div className="modal_cost_text">Estimated Cost</div>
+                                    <div className="modal_cost_num">$2,079</div>
+                                </div>
+                                <div className="modal_limit">
+                                    <div className="modal_limit_check">
+                                        <label for="limitPrice">Limit Price</label>
+                                        <input type="checkbox" id="limitPrice"></input>
+                                    </div>
+                                    <div className="modal_limit_input">
+                                        <input type="text" placeholder="$" size="10"></input>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="button" className="btn btn-success">Buy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="modal" role="dialog" id="sellModal">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header row">
+                                <h3 className="modal-title">Sell {search.searchedTicker}</h3>
+                                <button type="button" className="close modal_close_button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" className="modal_x">&times;</span>
+                                </button>
+                                <p className="modal_fund col-12">$1,000 available</p>
+
+                            </div>
+                            <div className="modal-body">
+                                <div className="modal_share">
+                                    <div className="modal_share_text">Number of Shares</div>
+                                    <div className="modal_share_input">
+                                        <input type="text" placeholder="0" size="10"></input>
+                                    </div>
+                                </div>
+                                <div className="modal_price">
+                                    <div className="modal_price_text">
+                                        Market Price
+                                    </div>
+                                    <div className="modal_price_num">$207.9</div>
+                                </div>
+                                <div className="modal_cost">
+                                    <div className="modal_cost_text">Estimated Credit</div>
+                                    <div className="modal_cost_num">$2,079</div>
+                                </div>
+                                <div className="modal_limit">
+                                    <div className="modal_limit_check">
+                                        <label for="limitPrice">Limit Order</label>
+                                        <input type="checkbox" id="limitPrice"></input>
+                                    </div>
+                                    <div className="modal_limit_input">
+                                        <input type="text" placeholder="$" size="10"></input>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="button" className="btn btn-success">Sell</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
