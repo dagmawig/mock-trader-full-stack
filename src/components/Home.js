@@ -34,13 +34,16 @@ function Home() {
 
                     let shares = (portfolio.ticker.includes(ticker.toUpperCase()))? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
 
+                    let cost = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
+
                     dispatch({
                         type: 'SET_SEARCH',
                         search: {
                             price: res.data.price,
                             plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
                             searchedTicker: ticker.toUpperCase(),
-                            shares: shares
+                            shares: shares,
+                            averCost: cost
                         }
                     })
                     dispatch({
