@@ -9,7 +9,7 @@ import { useStateValue } from './StateWrap';
 function Search() {
     const [ticker, getTicker] = useState('');
     const [{ userID, search, watchlist, fund, portfolio }, dispatch] = useStateValue();
-    const [trade, startTrade] = useState(['Trade', 'purple', 'hidden']);
+    const [trade, startTrade] = useState(['Trade', 'purple', 'hidden', 'hidden']);
     const [shareBuy, getBuyShare] = useState();
     const [shareSell, getSellShare] = useState();
     const [limitPrice, getLimitPrice] = useState();
@@ -253,13 +253,13 @@ function Search() {
                                     </div>
                                 </div>
                                 <div className="search_trade col-6">
-                                    <button className="search_trade_button search_sell" style={{ visibility: trade[2] }} onClick={openSell}>
+                                    <button className="search_trade_button search_sell" style={{ visibility: trade[3] }} onClick={openSell}>
                                         Sell
                              </button>
                                     <button className="search_trade_button search_buy" style={{ visibility: trade[2] }} onClick={openBuy}>
                                         Buy
                              </button>
-                                    <button className="search_trade_button search_trade_b" style={{ backgroundColor: trade[1] }} onClick={() => startTrade((trade[0] === 'Trade') ? ['X', 'grey', ''] : ['Trade', 'purple', 'hidden'])}>
+                                    <button className="search_trade_button search_trade_b" style={{ backgroundColor: trade[1] }} onClick={() => startTrade((trade[0] === 'Trade') ? ['X', 'grey', '', (search.shares)? '': 'hidden'] : ['Trade', 'purple', 'hidden', 'hidden'])}>
                                         {trade[0]}
                                     </button>
                                 </div>
@@ -283,7 +283,7 @@ function Search() {
                                 <div className="modal_share">
                                     <div className="modal_share_text">Number of Shares</div>
                                     <div className="modal_share_input">
-                                        <input type="number" placeholder="0" value={shareBuy} onChange={(e) => getBuyShare(e.target.value)}></input>
+                                        <input type="number" placeholder="0"  onChange={(e) => getBuyShare(e.target.value)}></input>
                                     </div>
                                 </div>
                                 <div className="modal_price">
@@ -298,11 +298,11 @@ function Search() {
                                 </div>
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
-                                        <label for="limitPrice">Limit Price</label>
+                                        <label >Limit Price</label>
                                         <input type="checkbox" id="limitPrice"></input>
                                     </div>
                                     <div className="modal_limit_input">
-                                        <input type="number" placeholder="$" value={limitPrice} onChange={(e) => getLimitPrice(e.target.value)}></input>
+                                        <input type="number" placeholder="$"  onChange={(e) => getLimitPrice(e.target.value)}></input>
                                     </div>
                                 </div>
 
@@ -330,7 +330,7 @@ function Search() {
                                 <div className="modal_share">
                                     <div className="modal_share_text">Number of Shares</div>
                                     <div className="modal_share_input">
-                                        <input type="number" placeholder="0" value={shareSell} onChange={(e) => getSellShare(e.target.value)}></input>
+                                        <input type="number" placeholder="0"  onChange={(e) => getSellShare(e.target.value)}></input>
                                     </div>
                                 </div>
                                 <div className="modal_price">
@@ -345,11 +345,11 @@ function Search() {
                                 </div>
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
-                                        <label for="limitPrice">Limit Order</label>
+                                        <label >Limit Order</label>
                                         <input type="checkbox" id="limitPrice"></input>
                                     </div>
                                     <div className="modal_limit_input">
-                                        <input type="number" placeholder="$" value={limitOrder} onChange={(e) => getLimitOrder(e.target.value)}></input>
+                                        <input type="number" placeholder="$" onChange={(e) => getLimitOrder(e.target.value)}></input>
                                     </div>
                                 </div>
 
