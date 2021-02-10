@@ -340,10 +340,15 @@ function Search() {
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
                                         <label >Limit Price</label>
-                                        <input type="checkbox" id="limitPrice" onChange={(e)=>isLimitPrice(e.target.checked)}></input>
+                                        <input type="checkbox" id="limitPrice" onChange={(e)=>{
+                                            if(!e.target.checked){
+                                                getLimitPrice('');
+                                                document.getElementById('ptext').value = '';
+                                            }
+                                            return isLimitPrice(e.target.checked)}}></input>
                                     </div>
                                     <div className="modal_limit_input">
-                                        <input type="number" placeholder="$"  onChange={(e) => getLimitPrice(e.target.value)} style={{backgroundColor: !priceChecked? 'darkgrey' : 'lightgreen'}} disabled={!priceChecked? true : false}></input>
+                                        <input type="number" placeholder="$" id='ptext'  onChange={(e) => getLimitPrice(e.target.value)} style={{backgroundColor: !priceChecked? 'darkgrey' : 'lightgreen'}} disabled={!priceChecked? true : false}></input>
                                     </div>
                                 </div>
 
@@ -387,10 +392,13 @@ function Search() {
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
                                         <label >Limit Order</label>
-                                        <input type="checkbox" id="limitOrder" onChange={(e)=>isLimitOrder(e.target.checked)} style={{backgroundColor: !orderChecked? 'darkgrey' : 'lightgreen'}} disabled={!orderChecked? true : false}></input>
+                                        <input type="checkbox" id="limitOrder" onChange={(e)=>{
+                                            getLimitOrder('');
+                                            document.getElementById('oText').value = '';
+                                            return isLimitOrder(e.target.checked)}} style={{backgroundColor: !orderChecked? 'darkgrey' : 'lightgreen'}} disabled={!orderChecked? true : false}></input>
                                     </div>
                                     <div className="modal_limit_input">
-                                        <input type="number" placeholder="$" onChange={(e) => getLimitOrder(e.target.value)}></input>
+                                        <input type="number" placeholder="$" id='oText' onChange={(e) => getLimitOrder(e.target.value)}></input>
                                     </div>
                                 </div>
 
