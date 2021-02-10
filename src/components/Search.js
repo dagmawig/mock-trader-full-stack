@@ -29,6 +29,7 @@ function Search() {
         }
         if(document.getElementById('bShares').value) {
             document.getElementById('bShares').value = '';
+            getBuyShare('');
         }
         
         
@@ -82,6 +83,7 @@ function Search() {
 
         if(document.getElementById('sShares').value) {
             document.getElementById('sShares').value = '';
+            getSellShare('');
         }
 
         window.$('#sellModal').modal('show');
