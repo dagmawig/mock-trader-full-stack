@@ -24,8 +24,14 @@ function Search() {
     
 
     function openBuy() {
+        if(document.getElementById('limitPrice').checked){
+            document.getElementById('limitPrice').click();
+        }
+        if(document.getElementById('bShares').value) {
+            document.getElementById('bShares').value = '';
+        }
         
-        //document.getElementById('limitPrice').checked = false;
+        
         // let element = document.getElementById('limitPrice');
         // element.checked = false;
         // let event = new Event('input', {bubbles: true});
@@ -70,7 +76,13 @@ function Search() {
     }
     function openSell() {
 
-        document.getElementById('limitOrder').checked = false;
+        if(document.getElementById('limitOrder').checked){
+            document.getElementById('limitOrder').click();
+        }
+
+        if(document.getElementById('sShares').value) {
+            document.getElementById('sShares').value = '';
+        }
 
         window.$('#sellModal').modal('show');
 
@@ -113,7 +125,7 @@ function Search() {
     function buyStock(e) {
 
         e.preventDefault();
-        console.log(document.getElementById('limitPrice').checked);
+        console.log(priceChecked);
         if (!shareBuy.split(' ').join('')) alert('Number of shares field is empty.');
         else if (parseFloat(shareBuy) === 0) alert('Enter shares more than 0.');
         //else if (priceChecked && )
@@ -310,7 +322,7 @@ function Search() {
                                 <div className="modal_share">
                                     <div className="modal_share_text">Number of Shares</div>
                                     <div className="modal_share_input">
-                                        <input type="number" placeholder="0"  onChange={(e) => getBuyShare(e.target.value)}></input>
+                                        <input type="number" placeholder="0" id='bShares'  onChange={(e) => getBuyShare(e.target.value)}></input>
                                     </div>
                                 </div>
                                 <div className="modal_price">
@@ -357,7 +369,7 @@ function Search() {
                                 <div className="modal_share">
                                     <div className="modal_share_text">Number of Shares</div>
                                     <div className="modal_share_input">
-                                        <input type="number" placeholder="0"  onChange={(e) => getSellShare(e.target.value)}></input>
+                                        <input type="number" placeholder="0" id='sShares'  onChange={(e) => getSellShare(e.target.value)}></input>
                                     </div>
                                 </div>
                                 <div className="modal_price">
