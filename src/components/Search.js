@@ -184,7 +184,7 @@ function Search() {
                             type: 'TOGGLE_LOADING',
                             loadingDisplay: 'none'
                         })
-                        startTrade(['Trade', 'purple', 'hidden']);
+                        startTrade(['Trade', 'purple', 'hidden', 'hidden']);
                     }
 
                 }))
