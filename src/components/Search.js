@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useStateUpdater } from 'react';
 import './Search.css';
 import axios from 'axios';
 import { useStateValue } from './StateWrap';
@@ -10,18 +10,29 @@ function Search() {
     const [ticker, getTicker] = useState('');
     const [{ userID, search, watchlist, fund, portfolio }, dispatch] = useStateValue();
     const [trade, startTrade] = useState(['Trade', 'purple', 'hidden', 'hidden']);
-    const [shareBuy, getBuyShare] = useState();
-    const [shareSell, getSellShare] = useState();
-    const [limitPrice, getLimitPrice] = useState();
-    const [limitOrder, getLimitOrder] = useState();
-
+    const [shareBuy, getBuyShare] = useState('');
+    const [shareSell, getSellShare] = useState('');
+    const [limitPrice, getLimitPrice] = useState('');
+    const [limitOrder, getLimitOrder] = useState('');
+    const [priceChecked, isLimitPrice] = useState(false);
+    const [orderChecked, isLimitOrder] = useState(false);
+    
     function formatNum(x) {
         x = x.toFixed(2);
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-    function openBuy() {
-        window.$('#buyModal').modal('show');
+    
 
+    function openBuy() {
+        
+        //document.getElementById('limitPrice').checked = false;
+        // let element = document.getElementById('limitPrice');
+        // element.checked = false;
+        // let event = new Event('input', {bubbles: true});
+        // element.dispatchEvent(event);
+
+        window.$('#buyModal').modal('show');
+        
         dispatch({
             type: 'TOGGLE_LOADING',
             loadingDisplay: 'block'
@@ -58,6 +69,9 @@ function Search() {
             })
     }
     function openSell() {
+
+        document.getElementById('limitOrder').checked = false;
+
         window.$('#sellModal').modal('show');
 
         dispatch({
@@ -94,6 +108,19 @@ function Search() {
                 })
 
             })
+    }
+
+    function buyStock(e) {
+
+        e.preventDefault();
+        console.log(document.getElementById('limitPrice').checked);
+        if (!shareBuy.split(' ').join('')) alert('Number of shares field is empty.');
+        else if (parseFloat(shareBuy) === 0) alert('Enter shares more than 0.');
+        //else if (priceChecked && )
+        else {
+
+        }
+
     }
     const updateWatchlist = (e) => {
 
@@ -299,17 +326,17 @@ function Search() {
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
                                         <label >Limit Price</label>
-                                        <input type="checkbox" id="limitPrice"></input>
+                                        <input type="checkbox" id="limitPrice" onChange={(e)=>isLimitPrice(e.target.checked)}></input>
                                     </div>
                                     <div className="modal_limit_input">
-                                        <input type="number" placeholder="$"  onChange={(e) => getLimitPrice(e.target.value)}></input>
+                                        <input type="number" placeholder="$"  onChange={(e) => getLimitPrice(e.target.value)} style={{backgroundColor: !priceChecked? 'darkgrey' : 'lightgreen'}} disabled={!priceChecked? true : false}></input>
                                     </div>
                                 </div>
 
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <button type="button" className="btn btn-success">Buy</button>
+                                <button type="button" className="btn btn-success" onClick={buyStock}>Buy</button>
                             </div>
                         </div>
                     </div>
@@ -346,7 +373,7 @@ function Search() {
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
                                         <label >Limit Order</label>
-                                        <input type="checkbox" id="limitPrice"></input>
+                                        <input type="checkbox" id="limitOrder" onChange={(e)=>isLimitOrder(e.target.checked)} style={{backgroundColor: !orderChecked? 'darkgrey' : 'lightgreen'}} disabled={!orderChecked? true : false}></input>
                                     </div>
                                     <div className="modal_limit_input">
                                         <input type="number" placeholder="$" onChange={(e) => getLimitOrder(e.target.value)}></input>
