@@ -16,30 +16,25 @@ function Search() {
     const [limitOrder, getLimitOrder] = useState('');
     const [priceChecked, isLimitPrice] = useState(false);
     const [orderChecked, isLimitOrder] = useState(false);
-    
+
     function formatNum(x) {
         x = x.toFixed(2);
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-    
+
 
     function openBuy() {
-        if(document.getElementById('limitPrice').checked){
+
+        if (document.getElementById('limitPrice').checked) {
             document.getElementById('limitPrice').click();
         }
-        if(document.getElementById('bShares').value) {
+        if (document.getElementById('bShares').value) {
             document.getElementById('bShares').value = '';
             getBuyShare('');
         }
-        
-        
-        // let element = document.getElementById('limitPrice');
-        // element.checked = false;
-        // let event = new Event('input', {bubbles: true});
-        // element.dispatchEvent(event);
 
         window.$('#buyModal').modal('show');
-        
+
         dispatch({
             type: 'TOGGLE_LOADING',
             loadingDisplay: 'block'
@@ -77,11 +72,11 @@ function Search() {
     }
     function openSell() {
 
-        if(document.getElementById('limitOrder').checked){
+        if (document.getElementById('limitOrder').checked) {
             document.getElementById('limitOrder').click();
         }
 
-        if(document.getElementById('sShares').value) {
+        if (document.getElementById('sShares').value) {
             document.getElementById('sShares').value = '';
             getSellShare('');
         }
@@ -127,12 +122,19 @@ function Search() {
     function buyStock(e) {
 
         e.preventDefault();
-        console.log(priceChecked);
-        if (!shareBuy.split(' ').join('')) alert('Number of shares field is empty.');
-        else if (parseFloat(shareBuy) === 0) alert('Enter shares more than 0.');
-        //else if (priceChecked && )
+        console.log(priceChecked, shareBuy, limitPrice);
+        if (!shareBuy.split(' ').join('') || parseFloat(shareBuy) === 0) alert('Enter number of shares more than 0.');
         else {
-
+            async function buyTicker() {
+                let res = await axios.post('https://mock-trader.glitch.me/buyTicker', { ticker: search.searchedTicker, shares: parseFloat(shareBuy), limitPrice: parseFloat(limitPrice), fund: fund })
+                return res;
+            }
+            buyTicker()
+                .then(res => {
+                    if(!res.data.success) {
+                        alert(res.data.message);
+                    }
+                })
         }
 
     }
@@ -300,7 +302,7 @@ function Search() {
                                     <button className="search_trade_button search_buy" style={{ visibility: trade[2] }} onClick={openBuy}>
                                         Buy
                              </button>
-                                    <button className="search_trade_button search_trade_b" style={{ backgroundColor: trade[1] }} onClick={() => startTrade((trade[0] === 'Trade') ? ['X', 'grey', '', (search.shares)? '': 'hidden'] : ['Trade', 'purple', 'hidden', 'hidden'])}>
+                                    <button className="search_trade_button search_trade_b" style={{ backgroundColor: trade[1] }} onClick={() => startTrade((trade[0] === 'Trade') ? ['X', 'grey', '', (search.shares) ? '' : 'hidden'] : ['Trade', 'purple', 'hidden', 'hidden'])}>
                                         {trade[0]}
                                     </button>
                                 </div>
@@ -324,7 +326,7 @@ function Search() {
                                 <div className="modal_share">
                                     <div className="modal_share_text">Number of Shares</div>
                                     <div className="modal_share_input">
-                                        <input type="number" placeholder="0" id='bShares'  onChange={(e) => getBuyShare(e.target.value)}></input>
+                                        <input type="number" placeholder="0" id='bShares' onChange={(e) => getBuyShare(e.target.value)}></input>
                                     </div>
                                 </div>
                                 <div className="modal_price">
@@ -335,20 +337,21 @@ function Search() {
                                 </div>
                                 <div className="modal_cost">
                                     <div className="modal_cost_text">Estimated Cost</div>
-                                    <div className="modal_cost_num">${(shareBuy)? formatNum(shareBuy * parseFloat(search.price.replace(',', ''))): 0}</div>
+                                    <div className="modal_cost_num">${(shareBuy) ? formatNum(shareBuy * parseFloat(search.price.replace(',', ''))) : 0}</div>
                                 </div>
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
                                         <label >Limit Price</label>
-                                        <input type="checkbox" id="limitPrice" onChange={(e)=>{
-                                            if(!e.target.checked){
+                                        <input type="checkbox" id="limitPrice" onChange={(e) => {
+                                            if (!e.target.checked) {
                                                 getLimitPrice('');
                                                 document.getElementById('ptext').value = '';
                                             }
-                                            return isLimitPrice(e.target.checked)}}></input>
+                                            return isLimitPrice(e.target.checked)
+                                        }}></input>
                                     </div>
                                     <div className="modal_limit_input">
-                                        <input type="number" placeholder="$" id='ptext'  onChange={(e) => getLimitPrice(e.target.value)} style={{backgroundColor: !priceChecked? 'darkgrey' : 'lightgreen'}} disabled={!priceChecked? true : false}></input>
+                                        <input type="number" placeholder="$" id='ptext' onChange={(e) => getLimitPrice(e.target.value)} style={{ backgroundColor: !priceChecked ? 'darkgrey' : 'lightgreen' }} disabled={!priceChecked ? true : false}></input>
                                     </div>
                                 </div>
 
@@ -376,7 +379,7 @@ function Search() {
                                 <div className="modal_share">
                                     <div className="modal_share_text">Number of Shares</div>
                                     <div className="modal_share_input">
-                                        <input type="number" placeholder="0" id='sShares'  onChange={(e) => getSellShare(e.target.value)}></input>
+                                        <input type="number" placeholder="0" id='sShares' onChange={(e) => getSellShare(e.target.value)}></input>
                                     </div>
                                 </div>
                                 <div className="modal_price">
@@ -387,15 +390,16 @@ function Search() {
                                 </div>
                                 <div className="modal_cost">
                                     <div className="modal_cost_text">Estimated Credit</div>
-                                    <div className="modal_cost_num">${(shareSell)?formatNum(shareSell * parseFloat(search.price.replace(',', ''))): 0}</div>
+                                    <div className="modal_cost_num">${(shareSell) ? formatNum(shareSell * parseFloat(search.price.replace(',', ''))) : 0}</div>
                                 </div>
                                 <div className="modal_limit">
                                     <div className="modal_limit_check">
                                         <label >Limit Order</label>
-                                        <input type="checkbox" id="limitOrder" onChange={(e)=>{
+                                        <input type="checkbox" id="limitOrder" onChange={(e) => {
                                             getLimitOrder('');
                                             document.getElementById('oText').value = '';
-                                            return isLimitOrder(e.target.checked)}} style={{backgroundColor: !orderChecked? 'darkgrey' : 'lightgreen'}} disabled={!orderChecked? true : false}></input>
+                                            return isLimitOrder(e.target.checked)
+                                        }} style={{ backgroundColor: !orderChecked ? 'darkgrey' : 'lightgreen' }} disabled={!orderChecked ? true : false}></input>
                                     </div>
                                     <div className="modal_limit_input">
                                         <input type="number" placeholder="$" id='oText' onChange={(e) => getLimitOrder(e.target.value)}></input>

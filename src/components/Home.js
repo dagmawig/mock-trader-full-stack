@@ -7,8 +7,9 @@ import { Link } from 'react-router-dom';
 
 function Home() {
 
-    const [{ watchlist, portfolio }, dispatch] = useStateValue();
+    const [{ watchlist, portfolio, userID }, dispatch] = useStateValue();
 
+    //if(userID)
     const searchStock = (e) => {
 
         e.preventDefault();
