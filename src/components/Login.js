@@ -18,6 +18,7 @@ function Login() {
             let user = auth.currentUser;
             if(user.emailVerified){
                 alert("email verified");
+
                 console.log(user);
             }
             else {
@@ -75,7 +76,7 @@ function Login() {
                 <form>
                     <h3>Welcome to Mock Trader</h3>
                     Email<br />
-                    <input type="text" size="22" value={email} onChange={(e) => getEmail(e.target.value)} /><br /><br />
+                    <input type="email" size="22" value={email} onChange={(e) => getEmail(e.target.value)} /><br /><br />
                     Password<br />
                     <input type="password" size="22" value={password} onChange={(e) => getPassword(e.target.value)} /><br /><br />
                     <button type="submit" onClick={signIn} className="login_signIn btn btn-success">

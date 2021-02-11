@@ -1,5 +1,5 @@
 export const initialState = {
-    userID: 'dag',
+    userID: '',
     loadingDisplay: 'none',
     fund: 10000.00,
     search: { price: '', plusButtonClass: '', searchedTicker: '', shares: 0, averCost: 0 },

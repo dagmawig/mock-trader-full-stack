@@ -13,6 +13,26 @@ import Loading from './components/Loading';
 
 function App() {
 
+  const [{ userID }] = useStateValue();
+  let homePage;
+  if (userID) {
+    homePage = (
+      <>
+        <Header />
+        <Loading />
+        <Home />
+        <Footer />
+      </>
+    )
+  }
+  else {
+    homePage = (
+      <>
+        <Loading />
+        <Login />
+      </>
+    )
+  }
   //const [{ search, watchlist }, dispatch] = useStateValue();
 
   // async function updatePrice() {
@@ -40,7 +60,7 @@ function App() {
   //     interval = setInterval (() => {
   //       updatePrice()
   //     }, 60000)
-  
+
   //   }
   //   else {
   //     if(interval){
@@ -58,22 +78,29 @@ function App() {
             <Login />
           </Route>
           <Route path="/search">
-            <Header />
-            <Loading />
-            <Search />
-            <Footer />
+            {(userID) ?
+              <>
+                <Header />
+                <Loading />
+                <Search />
+                <Footer />
+              </> :
+              <div>Page access not authorized!</div>
+            }
           </Route>
           <Route path="/history">
-            <Header />
-            <Loading />
-            <History />
-            <Footer />
+            {(userID) ?
+              <>
+                <Header />
+                <Loading />
+                <History />
+                <Footer />
+              </> :
+              <div>Page access not authorized!</div>
+            }
           </Route>
           <Route path="/">
-            <Header />
-            <Loading />
-            <Home />
-            <Footer />
+            {homePage}
           </Route>
         </Switch>
       </div>
