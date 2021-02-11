@@ -22,7 +22,7 @@ const reducer = (state, action) => {
     switch (action.type) {
         case "SET_USER":
             return {
-                ...state, user: action.user
+                ...state, userID: action.userID
             };
         case "SET_SEARCH":
             return {

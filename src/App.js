@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import { useStateValue } from './components/StateWrap';
 import { useEffect } from 'react';
@@ -15,7 +15,8 @@ function App() {
 
   const [{ userID }] = useStateValue();
   let homePage;
-  if (userID) {
+  
+  if (localStorage.getItem("userID")) {
     homePage = (
       <>
         <Header />
@@ -73,12 +74,8 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/login">
-            <Loading />
-            <Login />
-          </Route>
           <Route path="/search">
-            {(userID) ?
+            {(localStorage.getItem("userID")) ?
               <>
                 <Header />
                 <Loading />
@@ -89,7 +86,7 @@ function App() {
             }
           </Route>
           <Route path="/history">
-            {(userID) ?
+            {(localStorage.getItem("userID")) ?
               <>
                 <Header />
                 <Loading />
@@ -98,6 +95,11 @@ function App() {
               </> :
               <div>Page access not authorized!</div>
             }
+          </Route>
+          <Route path="/empty">
+            <div>
+              Verification link sent to your email! <br/>Please click on link to verify email....then <button><Link to="/">Login</Link></button>
+            </div>
           </Route>
           <Route path="/">
             {homePage}

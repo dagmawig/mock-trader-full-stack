@@ -1,14 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Header.css';
 import { useStateValue } from './StateWrap';
 
 function Header() {
 
-    const [{ fund }] = useStateValue();
+    const [{ fund }, dispatch] = useStateValue();
 
     function formatNum(x) {
         x = x.toFixed(2);
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function logout() {
+        localStorage.setItem("userID", "");
+
+        dispatch({
+            type: 'SET_USER',
+            userID: null
+        })
     }
 
     return (
@@ -31,7 +41,11 @@ function Header() {
                     </div>
                 </div>
                 <div className="header_logout col-2">
-                    <button className="header_button"><i className="fa fa-power-off fa-2x" ></i></button>
+                    <button className="header_button" onClick={logout}>
+                        <Link to="/">
+                            <i className="fa fa-power-off fa-2x" ></i>
+                        </Link>
+                    </button>
                 </div>
             </div>
         </div>

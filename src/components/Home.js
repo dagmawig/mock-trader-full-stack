@@ -10,15 +10,16 @@ function Home() {
     const [{ watchlist, portfolio, userID }, dispatch] = useStateValue();
 
     if(userID) {
-        async function loadUserData() {
-            let url = 'https://mock-trader.glitch.me/loadData/' + userID;
-            let res = await axios.get(url);
-            return res;
-        }
-        loadUserData()
-        .then(res => {
-            console.log(res.data);
-        })
+        console.log("got to home page", userID);
+        // async function loadUserData() {
+        //     let url = 'https://mock-trader.glitch.me/loadData/' + userID;
+        //     let res = await axios.get(url);
+        //     return res;
+        // }
+        // loadUserData()
+        // .then(res => {
+        //     console.log(res.data);
+        // })
 
     }
     const searchStock = (e) => {
