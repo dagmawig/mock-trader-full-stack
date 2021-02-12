@@ -24,7 +24,7 @@ function Header() {
     return (
         <div className="header container">
             <div className="header_row row">
-                <div className="header_cash col-5 col-sm-3">
+                <div className="header_cash col-5 col-sm-4">
                     <div className="header_cash_top row">
                         Buying Power &emsp;<i className="fa fa-money"></i>
                     </div>
@@ -32,7 +32,7 @@ function Header() {
                         ${(fund)? formatNum(fund): ""}
                     </div>
                 </div>
-                <div className="header_stock col-5 col-sm-3">
+                <div className="header_stock col-5 col-sm-4">
                     <div className="header_stock_top row">
                         Investing &emsp;<i className="fa fa-line-chart"></i>
                     </div>
