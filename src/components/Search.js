@@ -126,7 +126,7 @@ function Search() {
         if (!shareBuy.split(' ').join('') || parseFloat(shareBuy) === 0) alert('Enter number of shares more than 0.');
         else {
             async function buyTicker() {
-                let res = await axios.post('https://mock-trader.glitch.me/buyTicker', { ticker: search.searchedTicker, shares: parseFloat(shareBuy), limitPrice: parseFloat(limitPrice), fund: fund })
+                let res = await axios.post('https://mock-trader.glitch.me/buyTicker', { userID: localStorage.getItem("userID"), ticker: search.searchedTicker, shares: parseFloat(shareBuy), limitPrice: parseFloat(limitPrice) })
                 return res;
             }
             buyTicker()
@@ -142,6 +142,11 @@ function Search() {
 
         e.preventDefault();
 
+        dispatch({
+            type: 'TOGGLE_LOADING',
+            loadingDisplay: 'block'
+        })
+
         if (!watchlist.ticker.includes(search.searchedTicker.toUpperCase())) {
             watchlist.ticker.push(search.searchedTicker.toUpperCase());
             watchlist.price.push(search.price);
@@ -152,13 +157,10 @@ function Search() {
             watchlist.price.splice(index, 1);
         }
 
-        dispatch({
-            type: 'TOGGLE_LOADING',
-            loadingDisplay: 'block'
-        })
+       
 
         async function setWatchlist() {
-            let res = await axios.post('https://mock-trader.glitch.me/updateWatchlist', { userID: userID, newWatchlist: watchlist })
+            let res = await axios.post('https://mock-trader.glitch.me/updateWatchlist', { userID: localStorage.getItem("userID"), newWatchlist: watchlist })
             return res;
         }
         setWatchlist()

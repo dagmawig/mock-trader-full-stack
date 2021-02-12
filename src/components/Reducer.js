@@ -9,6 +9,7 @@ export const initialState = {
     },
     portfolio: {
         ticker: [],
+        price: [],
         shares: [],
         purchaseP: [],
         averageC: [],
@@ -16,23 +17,6 @@ export const initialState = {
     },
 };
 
-const resetState = {
-    userID: '',
-    loadingDisplay: 'none',
-    fund: "",
-    search: { price: 0, plusButtonClass: '', searchedTicker: '', shares: 0, averCost: 0 },
-    watchlist: {
-        ticker: [],
-        price: [],
-    },
-    portfolio: {
-        ticker: [],
-        shares: [],
-        purchaseP: [],
-        averageC: [],
-        purchaseD: []
-    },
-};
 
 const reducer = (state, action) => {
 
