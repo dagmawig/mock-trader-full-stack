@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Home.css';
 import { useStateValue } from './StateWrap';
 import axios from 'axios';
@@ -9,19 +9,48 @@ function Home() {
 
     const [{ watchlist, portfolio, userID }, dispatch] = useStateValue();
 
-    if(userID) {
-        console.log("got to home page", userID);
-        // async function loadUserData() {
-        //     let url = 'https://mock-trader.glitch.me/loadData/' + userID;
-        //     let res = await axios.get(url);
-        //     return res;
-        // }
-        // loadUserData()
-        // .then(res => {
-        //     console.log(res.data);
-        // })
+    useEffect(() => {
 
-    }
+        console.log(localStorage.getItem("userID"));
+    
+        if (localStorage.getItem("userID")) {
+    
+          async function loadUserData() {
+            let url = 'https://mock-trader.glitch.me/loadData';
+            console.log(url);
+            let res = await axios.post(url, { userID: localStorage.getItem("userID") });
+            return res;
+          }
+    
+          dispatch({
+            type: 'TOGGLE_LOADING',
+            loadingDisplay: 'block'
+          })
+    
+          loadUserData()
+            .then(res => {
+              let data = res.data.data[0];
+              dispatch({
+                type: "LOAD_DATA",
+                data: {
+                  fund: data.fund,
+                  watchlist: data.watchlist,
+                  portfolio: data.portfolio
+                }
+              })
+    
+              dispatch({
+                type: 'TOGGLE_LOADING',
+                loadingDisplay: 'none'
+              })
+    
+              console.log(data);
+            })
+        }
+    
+      }, [])
+    
+
     const searchStock = (e) => {
 
         e.preventDefault();

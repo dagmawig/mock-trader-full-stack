@@ -206,7 +206,13 @@ function Search() {
                 .then((res => {
 
                     console.log(res.data);
-                    if (res.data.price == "") { alert("No such stock exists!"); }
+                    if (res.data.price == "") { 
+                        alert("No such stock exists!");
+                        dispatch({
+                            type: 'TOGGLE_LOADING',
+                            loadingDisplay: 'none'
+                        })
+                     }
                     else {
 
                         let shares = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
@@ -319,7 +325,7 @@ function Search() {
                                 <button type="button" className="close modal_close_button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" className="modal_x">&times;</span>
                                 </button>
-                                <p className="modal_fund col-12">${formatNum(fund)} available</p>
+                                <p className="modal_fund col-12">${(fund)? formatNum(fund): ""} available</p>
 
                             </div>
                             <div className="modal-body">

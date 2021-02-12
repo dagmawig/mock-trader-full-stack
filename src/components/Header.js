@@ -16,8 +16,8 @@ function Header() {
         localStorage.setItem("userID", "");
 
         dispatch({
-            type: 'SET_USER',
-            userID: null
+            type: 'RESET',
+            reset: null
         })
     }
 
@@ -29,7 +29,7 @@ function Header() {
                         Buying Power &emsp;<i className="fa fa-money"></i>
                     </div>
                     <div className="header_cash_bottom row">
-                        ${formatNum(fund)}
+                        ${(fund)? formatNum(fund): ""}
                     </div>
                 </div>
                 <div className="header_stock col-5 col-sm-3">

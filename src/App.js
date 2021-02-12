@@ -13,9 +13,14 @@ import Loading from './components/Loading';
 
 function App() {
 
-  const [{ userID }] = useStateValue();
-  let homePage;
+  const [{ userID }, dispatch] = useStateValue();
+  //const [{ watchlist, portfolio, userID }, dispatch] = useStateValue();
+
   
+
+
+  let homePage;
+
   if (localStorage.getItem("userID")) {
     homePage = (
       <>
@@ -98,7 +103,7 @@ function App() {
           </Route>
           <Route path="/empty">
             <div>
-              Verification link sent to your email! <br/>Please click on link to verify email....then <button><Link to="/">Login</Link></button>
+              Verification link sent to your email! <br />Please click on link to verify email....then <button><Link to="/">Login</Link></button>
             </div>
           </Route>
           <Route path="/">

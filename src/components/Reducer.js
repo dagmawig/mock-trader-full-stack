@@ -1,8 +1,26 @@
 export const initialState = {
     userID: '',
     loadingDisplay: 'none',
-    fund: 10000.00,
-    search: { price: '', plusButtonClass: '', searchedTicker: '', shares: 0, averCost: 0 },
+    fund: "",
+    search: { price: 0, plusButtonClass: '', searchedTicker: '', shares: 0, averCost: 0 },
+    watchlist: {
+        ticker: [],
+        price: [],
+    },
+    portfolio: {
+        ticker: [],
+        shares: [],
+        purchaseP: [],
+        averageC: [],
+        purchaseD: []
+    },
+};
+
+const resetState = {
+    userID: '',
+    loadingDisplay: 'none',
+    fund: "",
+    search: { price: 0, plusButtonClass: '', searchedTicker: '', shares: 0, averCost: 0 },
     watchlist: {
         ticker: [],
         price: [],
@@ -17,12 +35,17 @@ export const initialState = {
 };
 
 const reducer = (state, action) => {
-    console.log(action.watchlist);
 
     switch (action.type) {
+        case "RESET":
+            return initialState;
         case "SET_USER":
             return {
                 ...state, userID: action.userID
+            };
+        case "LOAD_DATA":
+            return {
+                ...state, fund: action.data.fund, watchlist: action.data.watchlist, portfolio: action.data.portfolio
             };
         case "SET_SEARCH":
             return {
