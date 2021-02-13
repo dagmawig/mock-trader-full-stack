@@ -11,9 +11,7 @@ export const initialState = {
         ticker: [],
         price: [],
         shares: [],
-        purchaseP: [],
         averageC: [],
-        purchaseD: []
     },
 };
 
@@ -43,10 +41,14 @@ const reducer = (state, action) => {
             return {
                 ...state, watchlist: action.watchlist
             };
+        case "UPDATE_PORTFOLIO":
+            return {
+                ...state, portfolio: action.portfolio
+            }
         case "TOGGLE_LOADING":
             return {
                 ...state, loadingDisplay: action.loadingDisplay
-            }
+            };
         default:
             return state;
     }

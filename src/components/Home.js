@@ -29,7 +29,8 @@ function Home() {
     
           loadUserData()
             .then(res => {
-              let data = res.data.data[0];
+              let data = res.data.data;
+                console.log(data.watchlist, data.portfolio);
               dispatch({
                 type: "LOAD_DATA",
                 data: {
@@ -43,8 +44,6 @@ function Home() {
                 type: 'TOGGLE_LOADING',
                 loadingDisplay: 'none'
               })
-    
-              console.log(data);
             })
         }
     
@@ -114,6 +113,22 @@ function Home() {
         );
     })
 
+    const investingDiv = portfolio.ticker.map((ticker, i) => {
+        return (
+            <div className="home_stock row" key={i + 'in'}>
+                    <button className="home_watchlist_button" value={ticker} onClick={searchStock}>
+                    <Link to="/search" className="home_watchlist_link" >
+                        <div className="home_stock_ticker col-6">
+                            {ticker}
+                        </div>
+                        <div className="home_stock_price col-6">
+                            ${portfolio.price[i]}
+                        </div>
+                        </Link>
+                    </button>
+            </div>
+        );
+    })
 
 
     return (
@@ -122,28 +137,13 @@ function Home() {
                 <div className="home_investing row">
                     <div className="home_header row">
                         <div className="home_header_title col-6">
-                            Stocks
+                            Investing
                             </div>
                         <div className="home_header_icon col-6">
                             <i className="fa fa-line-chart"></i>
                         </div>
                     </div>
-                    <div className="home_stock row">
-                        <div className="home_stock_ticker col-6">
-                            BA
-                        </div>
-                        <div className="home_stock_price col-6">
-                            $209.93
-                        </div>
-                    </div>
-                    <div className="home_stock row">
-                        <div className="home_stock_ticker col-6">
-                            BA
-                        </div>
-                        <div className="home_stock_price col-6">
-                            $209.93
-                        </div>
-                    </div>
+                    {investingDiv}
                 </div>
                 <div className="home_watchlist row">
                     <div className="home_header row">

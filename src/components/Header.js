@@ -5,7 +5,7 @@ import { useStateValue } from './StateWrap';
 
 function Header() {
 
-    const [{ fund }, dispatch] = useStateValue();
+    const [{ fund, portfolio }, dispatch] = useStateValue();
 
     function formatNum(x) {
         x = x.toFixed(2);
@@ -37,7 +37,9 @@ function Header() {
                         Investing &emsp;<i className="fa fa-line-chart"></i>
                     </div>
                     <div className="header_stock_bottom row">
-                        $1000.000
+                        ${formatNum(portfolio.shares.reduce((total, share, i) => {
+                            return total +(share*parseFloat(portfolio.price[i].replace(',', '')));
+                        }, 0))}
                     </div>
                 </div>
                 <div className="header_logout col-2">

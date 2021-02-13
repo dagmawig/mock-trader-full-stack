@@ -134,6 +134,16 @@ function Search() {
                     if(!res.data.success) {
                         alert(res.data.message);
                     }
+                    else {
+                        let data = res.data.data
+                        alert(data.message);
+                        dispatch({
+                            type: 'UPDATE_PORTFOLIO',
+                            portfolio: data.data.portfolio
+                        })
+                        console.log(res.data.data.data);
+
+                    }
                 })
         }
 
@@ -149,12 +159,12 @@ function Search() {
 
         if (!watchlist.ticker.includes(search.searchedTicker.toUpperCase())) {
             watchlist.ticker.push(search.searchedTicker.toUpperCase());
-            watchlist.price.push(search.price);
+            //watchlist.price.push(search.price);
         }
         else {
             let index = watchlist.ticker.indexOf(search.searchedTicker.toUpperCase());
             watchlist.ticker.splice(index, 1);
-            watchlist.price.splice(index, 1);
+            //watchlist.price.splice(index, 1);
         }
 
        
