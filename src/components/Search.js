@@ -1,4 +1,4 @@
-import React, { useState, useStateUpdater } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Search.css';
 import axios from 'axios';
 import { useStateValue } from './StateWrap';
@@ -125,13 +125,19 @@ function Search() {
         console.log(priceChecked, shareBuy, limitPrice);
         if (!shareBuy.split(' ').join('') || parseFloat(shareBuy) === 0) alert('Enter number of shares more than 0.');
         else {
+
+            dispatch({
+                type: 'TOGGLE_LOADING',
+                loadingDisplay: 'block'
+            })
+
             async function buyTicker() {
                 let res = await axios.post('https://mock-trader.glitch.me/buyTicker', { userID: localStorage.getItem("userID"), ticker: search.searchedTicker, shares: parseFloat(shareBuy), limitPrice: parseFloat(limitPrice) })
                 return res;
             }
             buyTicker()
                 .then(res => {
-                    if(!res.data.success) {
+                    if (!res.data.success) {
                         alert(res.data.message);
                     }
                     else {
@@ -141,6 +147,20 @@ function Search() {
                             type: 'UPDATE_PORTFOLIO',
                             portfolio: data.data.portfolio
                         })
+                        dispatch({
+                            type: 'UPDATE_FUND',
+                            fund: data.data.fund
+                        })
+                        window.$('#buyModal').modal('hide');
+                        document.getElementById('searchB').click();
+
+                       
+                        // dispatch({
+                        //     type: 'SET_SEARCH',
+                        //     search: {
+                        //         shares: data.data.portfolio.shares
+                        //     }
+                        // })
                         console.log(res.data.data.data);
 
                     }
@@ -167,7 +187,7 @@ function Search() {
             //watchlist.price.splice(index, 1);
         }
 
-       
+
 
         async function setWatchlist() {
             let res = await axios.post('https://mock-trader.glitch.me/updateWatchlist', { userID: localStorage.getItem("userID"), newWatchlist: watchlist })
@@ -218,13 +238,13 @@ function Search() {
                 .then((res => {
 
                     console.log(res.data);
-                    if (res.data.price == "") { 
+                    if (res.data.price == "") {
                         alert("No such stock exists!");
                         dispatch({
                             type: 'TOGGLE_LOADING',
                             loadingDisplay: 'none'
                         })
-                     }
+                    }
                     else {
 
                         let shares = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
@@ -253,11 +273,52 @@ function Search() {
 
 
     }
+
+    useEffect(() => {
+
+        console.log(localStorage.getItem("userID"));
+
+        if (localStorage.getItem("userID")) {
+
+            async function loadUserData() {
+                let url = 'https://mock-trader.glitch.me/loadData';
+                console.log(url);
+                let res = await axios.post(url, { userID: localStorage.getItem("userID") });
+                return res;
+            }
+
+            dispatch({
+                type: 'TOGGLE_LOADING',
+                loadingDisplay: 'block'
+            })
+
+            loadUserData()
+                .then(res => {
+                    let data = res.data.data;
+                    console.log(data.watchlist, data.portfolio);
+                    dispatch({
+                        type: "LOAD_DATA",
+                        data: {
+                            fund: data.fund,
+                            watchlist: data.watchlist,
+                            portfolio: data.portfolio
+                        }
+                    })
+
+                    dispatch({
+                        type: 'TOGGLE_LOADING',
+                        loadingDisplay: 'none'
+                    })
+                })
+        }
+
+    }, [])
+
     return (
         <div className="search container">
             <div className="search_row row">
                 <div className="search_input_section row">
-                    <input className="search_input" type="text" value={ticker} onChange={(e) => getTicker(e.target.value)} placeholder="stock ticker symbol"></input><button className="search_button" onClick={searchStock}><i className="fa fa-search" ></i></button>
+                    <input className="search_input" type="text" value={ticker} onChange={(e) => getTicker(e.target.value)} placeholder="stock ticker symbol"></input><button className="search_button" onClick={searchStock} id="searchB"><i className="fa fa-search" ></i></button>
                 </div>
                 {(search.searchedTicker) ?
                     (
@@ -337,7 +398,7 @@ function Search() {
                                 <button type="button" className="close modal_close_button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" className="modal_x">&times;</span>
                                 </button>
-                                <p className="modal_fund col-12">${(fund)? formatNum(fund): ""} available</p>
+                                <p className="modal_fund col-12">${(fund) ? formatNum(fund) : ""} available</p>
 
                             </div>
                             <div className="modal-body">

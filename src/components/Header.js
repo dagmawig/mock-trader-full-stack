@@ -37,9 +37,9 @@ function Header() {
                         Investing &emsp;<i className="fa fa-line-chart"></i>
                     </div>
                     <div className="header_stock_bottom row">
-                        ${formatNum(portfolio.shares.reduce((total, share, i) => {
+                        ${(portfolio.shares.length)? formatNum(portfolio.shares.reduce((total, share, i) => {
                             return total +(share*parseFloat(portfolio.price[i].replace(',', '')));
-                        }, 0))}
+                        }, 0)): 0}
                     </div>
                 </div>
                 <div className="header_logout col-2">
