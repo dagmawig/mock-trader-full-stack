@@ -142,7 +142,7 @@ function Search() {
 
                         dispatch({
                             type: 'TOGGLE_LOADING',
-                            loadingDisplay: 'block'
+                            loadingDisplay: 'none'
                         })
                     }
                     else {
@@ -159,18 +159,58 @@ function Search() {
                         window.$('#buyModal').modal('hide');
                         document.getElementById('searchB').click();
 
-                       
-                        // dispatch({
-                        //     type: 'SET_SEARCH',
-                        //     search: {
-                        //         shares: data.data.portfolio.shares
-                        //     }
-                        // })
                         console.log(res.data.data.data);
 
                     }
                 })
         }
+
+    }
+
+    function sellStock(e) {
+
+        e.preventDefault();
+        console.log(orderChecked, shareSell, limitOrder);
+        if (!shareSell.split(' ').join('') || parseFloat(shareSell) <= 0) alert('Enter number of shares more than 0.');
+        else if(parseFloat(shareSell) > search.shares) alert(`You only have ${search.shares} shares!`);
+        else {
+            dispatch({
+                type: 'TOGGLE_LOADING',
+                loadingDisplay: 'block'
+            })
+
+            async function sellTicker() {
+                let res = await axios.post('https://mock-trader.glitch.me/sellTicker', { userID: localStorage.getItem("userID"), ticker: search.searchedTicker, shares: parseFloat(shareSell), limitOrder: parseFloat(limitOrder) })
+                return res;
+            }
+            sellTicker()
+            .then(res => {
+                if(!res.data.success) {
+                    alert(res.data.message);
+
+                    dispatch({
+                        type: 'TOGGLE_LOADING',
+                        loadingDisplay: 'none'
+                    })
+                }
+                else {
+                    let data = res.data.data;
+                    alert(data.message);
+                    dispatch({
+                        type: 'UPDATE_PORTFOLIO',
+                        portfolio: data.data.portfolio
+                    })
+                    dispatch({
+                        type: 'UPDATE_FUND',
+                        fund: data.data.fund
+                    })
+                    window.$('#sellModal').modal('hide');
+                    document.getElementById('searchB').click();
+                    console.log(data.data);
+                }
+            })
+        }
+
 
     }
     const updateWatchlist = (e) => {
@@ -480,20 +520,22 @@ function Search() {
                                     <div className="modal_limit_check">
                                         <label >Limit Order</label>
                                         <input type="checkbox" id="limitOrder" onChange={(e) => {
-                                            getLimitOrder('');
-                                            document.getElementById('oText').value = '';
+                                            if(!e.target.checked) {
+                                                getLimitOrder('');
+                                                document.getElementById('oText').value = '';
+                                            }
                                             return isLimitOrder(e.target.checked)
-                                        }} style={{ backgroundColor: !orderChecked ? 'darkgrey' : 'lightgreen' }} disabled={!orderChecked ? true : false}></input>
+                                        }} ></input>
                                     </div>
                                     <div className="modal_limit_input">
-                                        <input type="number" placeholder="$" id='oText' onChange={(e) => getLimitOrder(e.target.value)}></input>
+                                        <input type="number" placeholder="$" id='oText' onChange={(e) => getLimitOrder(e.target.value)} style={{ backgroundColor: !orderChecked ? 'darkgrey' : 'lightgreen' }} disabled={!orderChecked ? true : false}></input>
                                     </div>
                                 </div>
 
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <button type="button" className="btn btn-success">Sell</button>
+                                <button type="button" className="btn btn-success" onClick={sellStock}>Sell</button>
                             </div>
                         </div>
                     </div>
