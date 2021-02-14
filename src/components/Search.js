@@ -123,7 +123,7 @@ function Search() {
 
         e.preventDefault();
         console.log(priceChecked, shareBuy, limitPrice);
-        if (!shareBuy.split(' ').join('') || parseFloat(shareBuy) === 0) alert('Enter number of shares more than 0.');
+        if (!shareBuy.split(' ').join('') || parseFloat(shareBuy) <= 0) alert('Enter number of shares more than 0.');
         else {
 
             dispatch({
@@ -139,6 +139,11 @@ function Search() {
                 .then(res => {
                     if (!res.data.success) {
                         alert(res.data.message);
+
+                        dispatch({
+                            type: 'TOGGLE_LOADING',
+                            loadingDisplay: 'block'
+                        })
                     }
                     else {
                         let data = res.data.data
@@ -430,7 +435,7 @@ function Search() {
                                         }}></input>
                                     </div>
                                     <div className="modal_limit_input">
-                                        <input type="number" placeholder="$" id='ptext' onChange={(e) => getLimitPrice(e.target.value)} style={{ backgroundColor: !priceChecked ? 'darkgrey' : 'lightgreen' }} disabled={!priceChecked ? true : false}></input>
+                                        <input type="number" min="0" placeholder="$" id='ptext' onChange={(e) => getLimitPrice(e.target.value)} style={{ backgroundColor: !priceChecked ? 'darkgrey' : 'lightgreen' }} disabled={!priceChecked ? true : false}></input>
                                     </div>
                                 </div>
 
