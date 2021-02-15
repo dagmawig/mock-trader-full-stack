@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.css';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { auth } from './FirebaseConfig';
 import { useStateValue } from './StateWrap';
+import axios from 'axios';
 
 
 function Login() {
-   
+
     const [{ userID }, dispatch] = useStateValue();
     const [email, getEmail] = useState('');
     const [password, getPassword] = useState('');
@@ -22,11 +23,13 @@ function Login() {
                 if (user.emailVerified) {
 
                     localStorage.setItem("userID", user.uid);
-                    
+
                     dispatch({
                         type: 'SET_USER',
                         userID: user.uid
                     })
+
+                    window.location.reload();
                 }
                 else {
                     user.sendEmailVerification();
@@ -56,10 +59,11 @@ function Login() {
             .catch((error) => alert(error.message));
     };
 
+
     return (
         <div className="login row">
             <div className="login_image col-sm-6 d-none d-sm-block">
-                <img alt="login image" src="/image/login.jpg" />
+                <img alt="login image" src={process.env.PUBLIC_URL + '/image/login.jpg'} />
             </div>
             <div className="login_form col-sm-6">
 
@@ -70,7 +74,7 @@ function Login() {
                     Password<br />
                     <input type="password" size="22" value={password} onChange={(e) => getPassword(e.target.value)} /><br /><br />
                     <button type="submit" onClick={signIn} className="login_signIn btn btn-success">
-                        Sign In <i className="fa fa-sign-in"></i>
+                            Sign In <i className="fa fa-sign-in"></i>
                     </button>
                     <div className="divider" />
 

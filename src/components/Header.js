@@ -21,7 +21,11 @@ function Header() {
             type: 'RESET',
             reset: null
         })
+
+        window.location.reload();
     }
+
+   
 
     return (
         <div className="header container">

@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Search from './components/Search';
 import History from './components/History';
 import Loading from './components/Loading';
+import { useEffect } from 'react';
 
 function App() {
 
