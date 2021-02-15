@@ -50,7 +50,7 @@ function Header() {
                 </div>
                 <div className="header_logout col-2">
                     <button className="header_button" onClick={logout}>
-                        <Link to="/">
+                        <Link to="/mock-trader-full-stack/">
                             <i className="fa fa-power-off fa-2x" ></i>
                         </Link>
                     </button>
