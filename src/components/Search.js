@@ -18,6 +18,7 @@ function Search() {
 
     // method to format numbers to two decimal digits
     function formatNum(x) {
+        x=parseFloat(x);
         x = x.toFixed(2);
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
