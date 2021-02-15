@@ -10,15 +10,20 @@ function History() {
 
     const [{ history, loadingDisplay }, dispatch] = useStateValue();
 
-
+    // method for format numbers to two decimal digits.
     function formatNum(x) {
         x = x.toFixed(2);
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
+    // method to loop through the history object and return a list of history divs to display.
     const historyDiv = (history.ticker.length !== 0) ? history.ticker.map((ticker, i) => {
+
         let d = new Date(history.date[i]);
+
+        // changing UTC timezone to western hemsphere
         d = new Date(d.getTime() - ( d.getTimezoneOffset()*60000 )).toDateString();
+
         return (
             <div className="history_list row" key={i + "hist"}>
                 <div className="history_list_top row">
@@ -45,6 +50,7 @@ function History() {
         </div>
         ;
 
+    // hook to reload info from server
     useEffect(() => {
 
         console.log(localStorage.getItem("userID"));

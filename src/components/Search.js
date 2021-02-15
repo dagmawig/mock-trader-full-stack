@@ -3,10 +3,9 @@ import './Search.css';
 import axios from 'axios';
 import { useStateValue } from './StateWrap';
 
-//let plusButtonClass;
-//let searchedTicker;
 
 function Search() {
+    // various state variables
     const [ticker, getTicker] = useState('');
     const [{ userID, search, watchlist, fund, portfolio }, dispatch] = useStateValue();
     const [trade, startTrade] = useState(['Trade', 'purple', 'hidden', 'hidden']);
@@ -17,14 +16,16 @@ function Search() {
     const [priceChecked, isLimitPrice] = useState(false);
     const [orderChecked, isLimitOrder] = useState(false);
 
+    // method to format numbers to two decimal digits
     function formatNum(x) {
         x = x.toFixed(2);
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-
+    // method used to open buy modal
     function openBuy() {
 
+        // resetting the limitPrice checkbox and the limitPrice input box when reopening modal
         if (document.getElementById('limitPrice').checked) {
             document.getElementById('limitPrice').click();
         }
@@ -40,6 +41,7 @@ function Search() {
             loadingDisplay: 'block'
         })
 
+        // retrieving price data and loding it into app state when opening modal
         async function searchTicker() {
             let url = 'https://mock-trader.glitch.me/getPrice/' + search.searchedTicker;
             let res = await axios.get(url);
@@ -52,13 +54,12 @@ function Search() {
 
                 let cost = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
 
-                console.log("modalBuyPrice", res.data);
                 dispatch({
                     type: 'SET_SEARCH',
                     search: {
                         price: res.data.price,
                         plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
-                        searchedTicker: ticker.toUpperCase(),
+                        searchedTicker: search.searchedTicker.toUpperCase(),
                         shares: shares,
                         averCost: cost
                     }
@@ -70,12 +71,14 @@ function Search() {
 
             })
     }
+
+    // method used to open sell modal
     function openSell() {
 
+        // resetting the limitOrder checkbox and the limitOrder input box when reopening modal
         if (document.getElementById('limitOrder').checked) {
             document.getElementById('limitOrder').click();
         }
-
         if (document.getElementById('sShares').value) {
             document.getElementById('sShares').value = '';
             getSellShare('');
@@ -88,6 +91,7 @@ function Search() {
             loadingDisplay: 'block'
         })
 
+        // retrieving price data and loding it into app state when opening modal
         async function searchTicker() {
             let url = 'https://mock-trader.glitch.me/getPrice/' + search.searchedTicker;
             let res = await axios.get(url);
@@ -100,13 +104,12 @@ function Search() {
 
                 let cost = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
 
-                console.log("modalBuyPrice", res.data);
                 dispatch({
                     type: 'SET_SEARCH',
                     search: {
                         price: res.data.price,
                         plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
-                        searchedTicker: ticker.toUpperCase(),
+                        searchedTicker: search.searchedTicker.toUpperCase(),
                         shares: shares,
                         averCost: cost
                     }
@@ -119,10 +122,11 @@ function Search() {
             })
     }
 
+    // method used to process buy stock button
     function buyStock(e) {
 
         e.preventDefault();
-        console.log(priceChecked, shareBuy, limitPrice);
+
         if (!shareBuy.split(' ').join('') || parseFloat(shareBuy) <= 0) alert('Enter number of shares more than 0.');
         else {
 
@@ -161,9 +165,8 @@ function Search() {
                             history: data.data.history
                         })
                         window.$('#buyModal').modal('hide');
+                        getTicker(search.searchedTicker);
                         document.getElementById('searchB').click();
-
-                        console.log(res.data.data.data);
 
                     }
                 })
@@ -171,12 +174,13 @@ function Search() {
 
     }
 
+    // method used to process sell stock button
     function sellStock(e) {
 
         e.preventDefault();
-        console.log(orderChecked, shareSell, limitOrder);
+
         if (!shareSell.split(' ').join('') || parseFloat(shareSell) <= 0) alert('Enter number of shares more than 0.');
-        else if(parseFloat(shareSell) > search.shares) alert(`You only have ${search.shares} shares!`);
+        else if (parseFloat(shareSell) > search.shares) alert(`You only have ${search.shares} shares!`);
         else {
             dispatch({
                 type: 'TOGGLE_LOADING',
@@ -188,39 +192,41 @@ function Search() {
                 return res;
             }
             sellTicker()
-            .then(res => {
-                if(!res.data.success) {
-                    alert(res.data.message);
+                .then(res => {
+                    if (!res.data.success) {
+                        alert(res.data.message);
 
-                    dispatch({
-                        type: 'TOGGLE_LOADING',
-                        loadingDisplay: 'none'
-                    })
-                }
-                else {
-                    let data = res.data.data;
-                    alert(data.message);
-                    dispatch({
-                        type: 'UPDATE_PORTFOLIO',
-                        portfolio: data.data.portfolio
-                    })
-                    dispatch({
-                        type: 'UPDATE_FUND',
-                        fund: data.data.fund
-                    })
-                    dispatch({
-                        type: 'UPDATE_HISTORY',
-                        history: data.data.history
-                    })
-                    window.$('#sellModal').modal('hide');
-                    document.getElementById('searchB').click();
-                    console.log(data.data);
-                }
-            })
+                        dispatch({
+                            type: 'TOGGLE_LOADING',
+                            loadingDisplay: 'none'
+                        })
+                    }
+                    else {
+                        let data = res.data.data;
+                        alert(data.message);
+                        dispatch({
+                            type: 'UPDATE_PORTFOLIO',
+                            portfolio: data.data.portfolio
+                        })
+                        dispatch({
+                            type: 'UPDATE_FUND',
+                            fund: data.data.fund
+                        })
+                        dispatch({
+                            type: 'UPDATE_HISTORY',
+                            history: data.data.history
+                        })
+                        window.$('#sellModal').modal('hide');
+                        getTicker(search.searchedTicker);
+                        document.getElementById('searchB').click();
+                    }
+                })
         }
 
 
     }
+
+    // method used to update the stock watchlist
     const updateWatchlist = (e) => {
 
         e.preventDefault();
@@ -232,15 +238,11 @@ function Search() {
 
         if (!watchlist.ticker.includes(search.searchedTicker.toUpperCase())) {
             watchlist.ticker.push(search.searchedTicker.toUpperCase());
-            //watchlist.price.push(search.price);
         }
         else {
             let index = watchlist.ticker.indexOf(search.searchedTicker.toUpperCase());
             watchlist.ticker.splice(index, 1);
-            //watchlist.price.splice(index, 1);
         }
-
-
 
         async function setWatchlist() {
             let res = await axios.post('https://mock-trader.glitch.me/updateWatchlist', { userID: localStorage.getItem("userID"), newWatchlist: watchlist })
@@ -248,7 +250,6 @@ function Search() {
         }
         setWatchlist()
             .then((res) => {
-                console.log(res.data);
                 search.plusButtonClass = (!res.data.watchlist.ticker.includes(search.searchedTicker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x';
                 dispatch({
                     type: 'UPDATE_WATCHLIST',
@@ -260,21 +261,13 @@ function Search() {
                 })
             })
     }
+
+    // method used to handle the search stock button
     const searchStock = (e) => {
 
         e.preventDefault();
 
         if (!ticker.split(' ').join('')) alert('ticker field is empty');
-        else if (ticker === 'user') {
-            async function newUser() {
-                let res = await axios.post('https://mock-trader.glitch.me/createUser', { userID: userID })
-                return res;
-            }
-            newUser()
-                .then((res) => {
-                    console.log(res.data);
-                });
-        }
         else {
 
             dispatch({
@@ -290,7 +283,6 @@ function Search() {
             searchTicker()
                 .then((res => {
 
-                    console.log(res.data);
                     if (res.data.price == "") {
                         alert("No such stock exists!");
                         dispatch({
@@ -327,15 +319,13 @@ function Search() {
 
     }
 
+    // hook to reload data from server and put it into app state.
     useEffect(() => {
-
-        console.log(localStorage.getItem("userID"));
 
         if (localStorage.getItem("userID")) {
 
             async function loadUserData() {
                 let url = 'https://mock-trader.glitch.me/loadData';
-                console.log(url);
                 let res = await axios.post(url, { userID: localStorage.getItem("userID") });
                 return res;
             }
@@ -348,7 +338,6 @@ function Search() {
             loadUserData()
                 .then(res => {
                     let data = res.data.data;
-                    console.log(data.watchlist, data.portfolio, data.history);
                     dispatch({
                         type: "LOAD_DATA",
                         data: {
@@ -417,7 +406,7 @@ function Search() {
                                         Average Cost
                  </div>
                                     <div className="search_cost_bottom row">
-                                        ${search.averCost}
+                                        ${formatNum(search.averCost)}
                                     </div>
                                 </div>
                                 <div className="search_return col-6">
@@ -529,7 +518,7 @@ function Search() {
                                     <div className="modal_limit_check">
                                         <label >Limit Order</label>
                                         <input type="checkbox" id="limitOrder" onChange={(e) => {
-                                            if(!e.target.checked) {
+                                            if (!e.target.checked) {
                                                 getLimitOrder('');
                                                 document.getElementById('oText').value = '';
                                             }

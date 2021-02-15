@@ -7,11 +7,13 @@ function Header() {
 
     const [{ fund, portfolio }, dispatch] = useStateValue();
 
+    //method to format numbers to two decimal digits.
     function formatNum(x) {
         x = x.toFixed(2);
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
+    // method to rest app state during logout
     function logout() {
         localStorage.setItem("userID", "");
 

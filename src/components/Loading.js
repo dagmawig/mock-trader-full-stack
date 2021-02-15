@@ -2,6 +2,7 @@ import React from 'react';
 import './Loading.css';
 import { useStateValue } from './StateWrap';
 
+// method that returns a spinning loading sign 
 function Loading() {
     const [{ loadingDisplay }] = useStateValue();
 

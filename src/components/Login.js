@@ -6,17 +6,16 @@ import { useStateValue } from './StateWrap';
 
 
 function Login() {
-    //adding history of router components
-    //const history = useHistory();
-    // declaring username and password states
+   
     const [{ userID }, dispatch] = useStateValue();
-
-
     const [email, getEmail] = useState('');
     const [password, getPassword] = useState('');
 
+    // method used to sign in existing user. it also checks if email is verified. if not it sends verification email.
     const signIn = (e) => {
+
         e.preventDefault();
+
         auth.signInWithEmailAndPassword(email, password)
             .then(() => {
                 let user = auth.currentUser;
@@ -28,40 +27,24 @@ function Login() {
                         type: 'SET_USER',
                         userID: user.uid
                     })
-                    console.log(userID)
-
-                    console.log(user.uid);
-
                 }
                 else {
                     user.sendEmailVerification();
                     alert(`Email not verified.\nVerification link sent to ${email}.\nPlease verify your email.`);
-                    console.log(user);
                     auth.signOut();
                 }
             }).catch((error) => alert(error.message));
 
-        // auth.signInWithEmailAndPassword(email, password)
-        //     .then(() => {
-
-        //         console.log(user);
-        //     })
-
-        // .then(auth => {
-        //     if (auth) {
-        //         history.push('/');
-        //     }
-        // })
-        // .catch((error) => alert(error.message));
     };
 
+    // method to sign up user using firebase authentication method and send email verification link
     const signUp = (e) => {
+
         e.preventDefault();
 
         auth.createUserWithEmailAndPassword(email, password)
             .then(() => {
                 let user = auth.currentUser;
-                console.log(user);
                 user.sendEmailVerification()
                     .then(function () {
                         auth.signOut();
@@ -70,11 +53,6 @@ function Login() {
                         alert(e);
                     });
             })
-            // .then(auth=> {
-            //     if (auth) {
-            //         history.push('/');
-            //     }
-            // })
             .catch((error) => alert(error.message));
     };
 

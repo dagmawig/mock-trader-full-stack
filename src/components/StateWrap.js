@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
+// creating state context to use import and dispatch state values
 
 export const StateContext = createContext();
 

@@ -1,3 +1,4 @@
+// initial state of app
 export const initialState = {
     userID: '',
     loadingDisplay: 'none',
@@ -23,7 +24,7 @@ export const initialState = {
     }
 };
 
-
+// reducer to defind different actions used by dispatch
 const reducer = (state, action) => {
 
     switch (action.type) {
@@ -41,10 +42,6 @@ const reducer = (state, action) => {
             return {
                 ...state, search: action.search
             };
-        // case "SET_SEARCHP":
-        //     return {
-        //         ...state, search: {...state.search, price: action.searchP}
-        //     };
         case "UPDATE_FUND":
             return {
                 ...state, fund: action.fund

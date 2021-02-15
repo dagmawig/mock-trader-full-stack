@@ -7,17 +7,15 @@ import { Link } from 'react-router-dom';
 
 function Home() {
 
-    const [{ watchlist, portfolio, userID }, dispatch] = useStateValue();
+    const [{ watchlist, portfolio }, dispatch] = useStateValue();
 
+    // hook to load user data from server
     useEffect(() => {
-
-        console.log(localStorage.getItem("userID"));
     
         if (localStorage.getItem("userID")) {
     
           async function loadUserData() {
             let url = 'https://mock-trader.glitch.me/loadData';
-            console.log(url);
             let res = await axios.post(url, { userID: localStorage.getItem("userID") });
             return res;
           }
@@ -30,7 +28,6 @@ function Home() {
           loadUserData()
             .then(res => {
               let data = res.data.data;
-                console.log(data.watchlist, data.portfolio);
               dispatch({
                 type: "LOAD_DATA",
                 data: {
@@ -50,13 +47,13 @@ function Home() {
     
       }, [])
     
-
+    
+    // method used on investing and watchlist stock buttons. whenever the stocks are clicked they act as search stock function to display detail of stock.
     const searchStock = (e) => {
 
         e.preventDefault();
 
         const ticker = e.currentTarget.value;
-        console.log(ticker);
 
         dispatch({
             type: 'TOGGLE_LOADING',
@@ -70,7 +67,6 @@ function Home() {
         searchTicker()
             .then((res => {
 
-                console.log(res.data);
                 if (res.data.price == "") { alert("No such stock exists!"); }
                 else {
 
@@ -97,6 +93,7 @@ function Home() {
             }))
     }
 
+    // method to return a div containing a list of watchlist stockes with their price info loaded from app state 
     const watchlistDiv = watchlist.ticker.map((ticker, i) => {
         return (
             <div className="home_stock row" key={i + 'wl'}>
@@ -114,6 +111,7 @@ function Home() {
         );
     })
 
+    // method to return a div containing a list of investing stockes with their price info loaded from app state 
     const investingDiv = portfolio.ticker.map((ticker, i) => {
         return (
             <div className="home_stock row" key={i + 'in'}>
