@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/mock-trader-full-stack/static/css/main.19cbebb1.chunk.css",
+    "main.js": "/mock-trader-full-stack/static/js/main.267c0cbd.chunk.js",
+    "main.js.map": "/mock-trader-full-stack/static/js/main.267c0cbd.chunk.js.map",
+    "runtime-main.js": "/mock-trader-full-stack/static/js/runtime-main.b2ba6fda.js",
+    "runtime-main.js.map": "/mock-trader-full-stack/static/js/runtime-main.b2ba6fda.js.map",
+    "static/js/2.3e349232.chunk.js": "/mock-trader-full-stack/static/js/2.3e349232.chunk.js",
+    "static/js/2.3e349232.chunk.js.map": "/mock-trader-full-stack/static/js/2.3e349232.chunk.js.map",
+    "static/js/3.50dccfb4.chunk.js": "/mock-trader-full-stack/static/js/3.50dccfb4.chunk.js",
+    "static/js/3.50dccfb4.chunk.js.map": "/mock-trader-full-stack/static/js/3.50dccfb4.chunk.js.map",
+    "index.html": "/mock-trader-full-stack/index.html",
+    "static/css/main.19cbebb1.chunk.css.map": "/mock-trader-full-stack/static/css/main.19cbebb1.chunk.css.map",
+    "static/js/2.3e349232.chunk.js.LICENSE.txt": "/mock-trader-full-stack/static/js/2.3e349232.chunk.js.LICENSE.txt",
+    "static/media/History.css": "/mock-trader-full-stack/static/media/background.f7ef9266.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b2ba6fda.js",
+    "static/js/2.3e349232.chunk.js",
+    "static/css/main.19cbebb1.chunk.css",
+    "static/js/main.267c0cbd.chunk.js"
+  ]
+}
