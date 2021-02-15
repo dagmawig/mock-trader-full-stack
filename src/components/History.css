@@ -54,41 +54,42 @@
     margin-bottom: -1px;
 }
 .history_list {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     width: 100%;
     margin: 0px;
-    padding: 12px;
+    padding: 5px;
+    font-size: 10pt;
     border-top: limegreen dotted 1px;
 }
-.history_detail {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-.history_detail_top {
+.history_list_top {
     display: flex;
-    justify-content: flex-start;
+    justify-content:space-between;
     align-items: center;
     width: 100%;
     margin: 0px;
     padding: 3px;
 }
-.history_detail_bottom {
+.history_list_bottom {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     margin: 0px;
     padding: 3px;
     color: rgb(151, 25, 124)
 }
-.history_price {
+.history_list_stock, .history_list_date {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 0px;
+    padding: 0;
+}
+.history_list_price, .history_list_value {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     width: 100%;
     margin: 0px;
-    padding: 3px;
+    padding: 0;
 }

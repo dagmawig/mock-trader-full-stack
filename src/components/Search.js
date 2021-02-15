@@ -156,6 +156,10 @@ function Search() {
                             type: 'UPDATE_FUND',
                             fund: data.data.fund
                         })
+                        dispatch({
+                            type: 'UPDATE_HISTORY',
+                            history: data.data.history
+                        })
                         window.$('#buyModal').modal('hide');
                         document.getElementById('searchB').click();
 
@@ -203,6 +207,10 @@ function Search() {
                     dispatch({
                         type: 'UPDATE_FUND',
                         fund: data.data.fund
+                    })
+                    dispatch({
+                        type: 'UPDATE_HISTORY',
+                        history: data.data.history
                     })
                     window.$('#sellModal').modal('hide');
                     document.getElementById('searchB').click();
@@ -340,13 +348,14 @@ function Search() {
             loadUserData()
                 .then(res => {
                     let data = res.data.data;
-                    console.log(data.watchlist, data.portfolio);
+                    console.log(data.watchlist, data.portfolio, data.history);
                     dispatch({
                         type: "LOAD_DATA",
                         data: {
                             fund: data.fund,
                             watchlist: data.watchlist,
-                            portfolio: data.portfolio
+                            portfolio: data.portfolio,
+                            history: data.history
                         }
                     })
 

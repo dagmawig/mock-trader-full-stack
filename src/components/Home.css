@@ -91,7 +91,17 @@
     border: none;
     cursor: pointer;
 }
-.home_header_title, .home_stock_ticker {
+.home_header_title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 0px;
+    padding: 3px;
+    font-size: 18pt;
+    font-weight: 600;
+}
+.home_stock_ticker {
     display: flex;
     justify-content: flex-start;
     align-items: center;

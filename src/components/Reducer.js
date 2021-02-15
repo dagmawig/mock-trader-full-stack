@@ -13,6 +13,14 @@ export const initialState = {
         shares: [],
         averageC: [],
     },
+    history: {
+        ticker: [],
+        price: [],
+        shares: [],
+        value: [],
+        limit: [],
+        date: []
+    }
 };
 
 
@@ -27,7 +35,7 @@ const reducer = (state, action) => {
             };
         case "LOAD_DATA":
             return {
-                ...state, fund: action.data.fund, watchlist: action.data.watchlist, portfolio: action.data.portfolio
+                ...state, fund: action.data.fund, watchlist: action.data.watchlist, portfolio: action.data.portfolio, history: action.data.history
             };
         case "SET_SEARCH":
             return {
@@ -48,7 +56,11 @@ const reducer = (state, action) => {
         case "UPDATE_PORTFOLIO":
             return {
                 ...state, portfolio: action.portfolio
-            }
+            };
+        case "UPDATE_HISTORY":
+            return {
+                ...state, history: action.history
+            };
         case "TOGGLE_LOADING":
             return {
                 ...state, loadingDisplay: action.loadingDisplay

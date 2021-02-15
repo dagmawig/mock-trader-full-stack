@@ -1,92 +1,99 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './History.css';
+import { useStateValue } from './StateWrap';
+import axios from 'axios';
+
+
+
 
 function History() {
-    return(
+
+    const [{ history, loadingDisplay }, dispatch] = useStateValue();
+
+
+    function formatNum(x) {
+        x = x.toFixed(2);
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
+    const historyDiv = (history.ticker.length !== 0) ? history.ticker.map((ticker, i) => {
+        let d = new Date(history.date[i]);
+        d = new Date(d.getTime() + ( d.getTimezoneOffset()*60000 )).toDateString();
+        return (
+            <div className="history_list row" key={i + "hist"}>
+                <div className="history_list_top row">
+                    <div className="history_list_stock col-6">
+                        {ticker}: {history.limit[i]}
+                    </div>
+                    <div className="history_list_price col-6">
+                        {(history.value[i] < 0) ? `-$${formatNum(Math.abs(history.value[i]))}` : `$${formatNum(history.value[i])}`}
+                    </div>
+                </div>
+                <div className="history_list_bottom row">
+                    <div className="history_list_date col-6">
+                        {d}
+                    </div>
+                    <div className="history_list_value col-6">
+                        {`${history.shares[i]} shares @ $${history.price[i]}`}
+                    </div>
+                </div>
+            </div>
+        );
+    }) :
+        <div className="history_list row">
+           {(loadingDisplay === 'block')? "" : <>You Have No History. <br /> Go Make Some!!</>} 
+        </div>
+        ;
+
+    useEffect(() => {
+
+        console.log(localStorage.getItem("userID"));
+
+        if (localStorage.getItem("userID")) {
+
+            async function loadUserData() {
+                let url = 'https://mock-trader.glitch.me/loadData';
+                console.log(url);
+                let res = await axios.post(url, { userID: localStorage.getItem("userID") });
+                return res;
+            }
+
+            dispatch({
+                type: 'TOGGLE_LOADING',
+                loadingDisplay: 'block'
+            })
+
+            loadUserData()
+                .then(res => {
+                    let data = res.data.data;
+                    console.log(data.watchlist, data.portfolio, data.history);
+                    dispatch({
+                        type: "LOAD_DATA",
+                        data: {
+                            fund: data.fund,
+                            watchlist: data.watchlist,
+                            portfolio: data.portfolio,
+                            history: data.history
+                        }
+                    })
+
+                    dispatch({
+                        type: 'TOGGLE_LOADING',
+                        loadingDisplay: 'none'
+                    })
+                })
+        }
+
+    }, [])
+
+    return (
         <div className="history container">
             <div className="history_row row">
                 <div className="history_section row">
                     <div className="history_header row">
                         History
                     </div>
-                    <div className="history_list row">
-                        <div className="history_detail col-6">
-                            <div className="history_detail_top row">
-                                ACB: Limit Buy
-                            </div>
-                            <div className="history_detail_bottom row">
-                                Aug 07, 2019
-                            </div>
-                        </div>
-                        <div className="history_price col-6">
-                            +$1000.00
-                        </div>
-                    </div>
-                    <div className="history_list row">
-                        <div className="history_detail col-6">
-                            <div className="history_detail_top row">
-                                ACB: Limit Buy
-                            </div>
-                            <div className="history_detail_bottom row">
-                                Aug 07, 2019
-                            </div>
-                        </div>
-                        <div className="history_price col-6">
-                            +$1000.00
-                        </div>
-                    </div>
-                    <div className="history_list row">
-                        <div className="history_detail col-6">
-                            <div className="history_detail_top row">
-                                ACB: Limit Buy
-                            </div>
-                            <div className="history_detail_bottom row">
-                                Aug 07, 2019
-                            </div>
-                        </div>
-                        <div className="history_price col-6">
-                            +$1000.00
-                        </div>
-                    </div>
-                    <div className="history_list row">
-                        <div className="history_detail col-6">
-                            <div className="history_detail_top row">
-                                ACB: Limit Buy
-                            </div>
-                            <div className="history_detail_bottom row">
-                                Aug 07, 2019
-                            </div>
-                        </div>
-                        <div className="history_price col-6">
-                            +$1000.00
-                        </div>
-                    </div>
-                    <div className="history_list row">
-                        <div className="history_detail col-6">
-                            <div className="history_detail_top row">
-                                ACB: Limit Buy
-                            </div>
-                            <div className="history_detail_bottom row">
-                                Aug 07, 2019
-                            </div>
-                        </div>
-                        <div className="history_price col-6">
-                            +$1000.00
-                        </div>
-                    </div>
-                    <div className="history_list row">
-                        <div className="history_detail col-6">
-                            <div className="history_detail_top row">
-                                ACB: Limit Buy
-                            </div>
-                            <div className="history_detail_bottom row">
-                                Aug 07, 2019
-                            </div>
-                        </div>
-                        <div className="history_price col-6">
-                            +$1000.00
-                        </div>
-                    </div>
+                    {historyDiv}
                 </div>
             </div>
         </div>

@@ -36,7 +36,8 @@ function Home() {
                 data: {
                   fund: data.fund,
                   watchlist: data.watchlist,
-                  portfolio: data.portfolio
+                  portfolio: data.portfolio,
+                  history: data.history
                 }
               })
     
