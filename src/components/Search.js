@@ -319,6 +319,12 @@ function Search() {
 
     }
 
+    function handleEnter(e) {
+        if(e.key === 'Enter'){
+            searchStock(e);
+        }
+    }
+
     // hook to reload data from server and put it into app state.
     useEffect(() => {
 
@@ -361,7 +367,7 @@ function Search() {
         <div className="search container">
             <div className="search_row row">
                 <div className="search_input_section row">
-                    <input className="search_input" type="text" value={ticker} onChange={(e) => getTicker(e.target.value)} placeholder="stock ticker symbol"></input><button className="search_button" onClick={searchStock} id="searchB"><i className="fa fa-search" ></i></button>
+                    <input className="search_input" type="text" value={ticker} onChange={(e) => getTicker(e.target.value)} placeholder="stock ticker symbol" onKeyPress={handleEnter}></input><button className="search_button" onClick={searchStock} id="searchB"><i className="fa fa-search" ></i></button>
                 </div>
                 {(search.searchedTicker) ?
                     (
