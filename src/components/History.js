@@ -18,7 +18,7 @@ function History() {
 
     const historyDiv = (history.ticker.length !== 0) ? history.ticker.map((ticker, i) => {
         let d = new Date(history.date[i]);
-        d = new Date(d.getTime() + ( d.getTimezoneOffset()*60000 )).toDateString();
+        d = new Date(d.getTime() - ( d.getTimezoneOffset()*60000 )).toDateString();
         return (
             <div className="history_list row" key={i + "hist"}>
                 <div className="history_list_top row">
