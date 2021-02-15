@@ -79,7 +79,7 @@ function Login() {
                     <div className="divider" />
 
                     <button onClick={signUp} className="login_signUp btn btn-success">
-                        <Link to="/empty">
+                        <Link to="/empty" className="signUp_link">
                             Sign Up <i className="fa fa-user-plus"></i>
                         </Link>
                     </button>
