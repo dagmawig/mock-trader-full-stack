@@ -109,6 +109,15 @@
     margin: 0px;
     padding: 3px;
 }
+.home_stock_share {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 0px;
+    padding: 3px;
+    font-size: 10pt;
+}
 .home_header_icon, .home_stock_price {
     display: flex;
     justify-content: flex-end;

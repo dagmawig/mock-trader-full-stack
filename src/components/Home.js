@@ -11,43 +11,43 @@ function Home() {
 
     // hook to load user data from server
     useEffect(() => {
-    
+
         if (localStorage.getItem("userID")) {
-    
-          async function loadUserData() {
-            let url = 'https://mock-trader.glitch.me/loadData';
-            let res = await axios.post(url, { userID: localStorage.getItem("userID") });
-            return res;
-          }
-    
-          dispatch({
-            type: 'TOGGLE_LOADING',
-            loadingDisplay: 'block'
-          })
-    
-          loadUserData()
-            .then(res => {
-              let data = res.data.data;
-              dispatch({
-                type: "LOAD_DATA",
-                data: {
-                  fund: data.fund,
-                  watchlist: data.watchlist,
-                  portfolio: data.portfolio,
-                  history: data.history
-                }
-              })
-    
-              dispatch({
+
+            async function loadUserData() {
+                let url = 'https://mock-trader.glitch.me/loadData';
+                let res = await axios.post(url, { userID: localStorage.getItem("userID") });
+                return res;
+            }
+
+            dispatch({
                 type: 'TOGGLE_LOADING',
-                loadingDisplay: 'none'
-              })
+                loadingDisplay: 'block'
             })
+
+            loadUserData()
+                .then(res => {
+                    let data = res.data.data;
+                    dispatch({
+                        type: "LOAD_DATA",
+                        data: {
+                            fund: data.fund,
+                            watchlist: data.watchlist,
+                            portfolio: data.portfolio,
+                            history: data.history
+                        }
+                    })
+
+                    dispatch({
+                        type: 'TOGGLE_LOADING',
+                        loadingDisplay: 'none'
+                    })
+                })
         }
-    
-      }, [])
-    
-    
+
+    }, [])
+
+
     // method used on investing and watchlist stock buttons. whenever the stocks are clicked they act as search stock function to display detail of stock.
     const searchStock = (e) => {
 
@@ -70,7 +70,7 @@ function Home() {
                 if (res.data.price == "") { alert("No such stock exists!"); }
                 else {
 
-                    let shares = (portfolio.ticker.includes(ticker.toUpperCase()))? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
+                    let shares = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
 
                     let cost = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
 
@@ -97,7 +97,7 @@ function Home() {
     const watchlistDiv = watchlist.ticker.map((ticker, i) => {
         return (
             <div className="home_stock row" key={i + 'wl'}>
-                    <button className="home_watchlist_button" value={ticker} onClick={searchStock}>
+                <button className="home_watchlist_button" value={ticker} onClick={searchStock}>
                     <Link to="/search" className="home_watchlist_link" >
                         <div className="home_stock_ticker col-6">
                             {ticker}
@@ -105,8 +105,8 @@ function Home() {
                         <div className="home_stock_price col-6">
                             ${watchlist.price[i]}
                         </div>
-                        </Link>
-                    </button>
+                    </Link>
+                </button>
             </div>
         );
     })
@@ -115,16 +115,19 @@ function Home() {
     const investingDiv = portfolio.ticker.map((ticker, i) => {
         return (
             <div className="home_stock row" key={i + 'in'}>
-                    <button className="home_watchlist_button" value={ticker} onClick={searchStock}>
+                <button className="home_watchlist_button" value={ticker} onClick={searchStock}>
                     <Link to="/search" className="home_watchlist_link" >
-                        <div className="home_stock_ticker col-6">
+                        <div className="home_stock_ticker col-4">
                             {ticker}
                         </div>
-                        <div className="home_stock_price col-6">
+                        <div className="home_stock_share col-4">
+                            {portfolio.shares[i]} shares
+                        </div>
+                        <div className="home_stock_price col-4">
                             ${portfolio.price[i]}
                         </div>
-                        </Link>
-                    </button>
+                    </Link>
+                </button>
             </div>
         );
     })
