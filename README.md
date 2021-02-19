@@ -6,7 +6,7 @@ It scraps stock price data from Yahoo finance webpage.
 
 
 ## Server side
-Server side code is located at https://glitch.com/edit/#!/eisenhower-matrix-fullstack?path=server.js%3A140%3A13
+Server side code is located at https://glitch.com/edit/#!/mock-trader?path=server.js
 
 ### Services and Functions Used
 I used firebase authentication to verify user email and authenticate using email and password.
