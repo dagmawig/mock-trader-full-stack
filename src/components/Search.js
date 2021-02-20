@@ -51,15 +51,15 @@ function Search() {
         searchTicker()
             .then((res) => {
 
-                let shares = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
+                let shares = (portfolio.ticker.includes(search.searchedTicker.toUpperCase())) ? portfolio.shares[portfolio.ticker.indexOf(search.searchedTicker.toUpperCase())] : 0;
 
-                let cost = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
+                let cost = (portfolio.ticker.includes(search.SearchedTicker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(search.searchedTicker.toUpperCase())] : 0;
 
                 dispatch({
                     type: 'SET_SEARCH',
                     search: {
                         price: res.data.price,
-                        plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
+                        plusButtonClass: (!watchlist.ticker.includes(search.searchedTicker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
                         searchedTicker: search.searchedTicker.toUpperCase(),
                         shares: shares,
                         averCost: cost
@@ -100,16 +100,15 @@ function Search() {
         }
         searchTicker()
             .then((res) => {
+                let shares = (portfolio.ticker.includes(search.searchedTicker.toUpperCase())) ? portfolio.shares[portfolio.ticker.indexOf(search.searchedTicker.toUpperCase())] : 0;
 
-                let shares = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.shares[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
-
-                let cost = (portfolio.ticker.includes(ticker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(ticker.toUpperCase())] : 0;
+                let cost = (portfolio.ticker.includes(search.searchedTicker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(search.searchedTicker.toUpperCase())] : 0;
 
                 dispatch({
                     type: 'SET_SEARCH',
                     search: {
                         price: res.data.price,
-                        plusButtonClass: (!watchlist.ticker.includes(ticker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
+                        plusButtonClass: (!watchlist.ticker.includes(search.searchedTicker.toUpperCase())) ? 'fa fa-plus-square fa-3x' : 'fa fa-minus-square fa-3x',
                         searchedTicker: search.searchedTicker.toUpperCase(),
                         shares: shares,
                         averCost: cost
