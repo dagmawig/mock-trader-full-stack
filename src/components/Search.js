@@ -53,7 +53,7 @@ function Search() {
 
                 let shares = (portfolio.ticker.includes(search.searchedTicker.toUpperCase())) ? portfolio.shares[portfolio.ticker.indexOf(search.searchedTicker.toUpperCase())] : 0;
 
-                let cost = (portfolio.ticker.includes(search.SearchedTicker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(search.searchedTicker.toUpperCase())] : 0;
+                let cost = (portfolio.ticker.includes(search.searchedTicker.toUpperCase())) ? portfolio.averageC[portfolio.ticker.indexOf(search.searchedTicker.toUpperCase())] : 0;
 
                 dispatch({
                     type: 'SET_SEARCH',
