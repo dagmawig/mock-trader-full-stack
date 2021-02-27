@@ -40,26 +40,6 @@ function Login() {
 
     };
 
-    // method to sign up user using firebase authentication method and send email verification link
-    const signUp = (e) => {
-
-        e.preventDefault();
-
-        auth.createUserWithEmailAndPassword(email, password)
-            .then(() => {
-                let user = auth.currentUser;
-                user.sendEmailVerification()
-                    .then(function () {
-                        auth.signOut();
-                        alert(`Verification link sent to ${email}. \n Please click on the link to verify your email.`);
-                    }).catch(function (e) {
-                        alert(e);
-                    });
-            })
-            .catch((error) => alert(error.message));
-    };
-
-
     return (
         <div className="login row">
             <div className="login_image col-sm-6 d-none d-sm-block">
@@ -69,22 +49,20 @@ function Login() {
 
                 <form>
                     <h3>Welcome to Mock Trader</h3>
+                    <br/>
                     Email<br />
                     <input type="email" size="22" value={email} onChange={(e) => getEmail(e.target.value)} /><br /><br />
                     Password<br />
                     <input type="password" size="22" value={password} onChange={(e) => getPassword(e.target.value)} /><br /><br />
                     <button type="submit" onClick={signIn} className="login_signIn btn btn-success">
-                            Sign In <i className="fa fa-sign-in"></i>
+                        Sign In <i className="fa fa-sign-in"></i>
                     </button>
-                    <div className="divider" />
-
-                    <button onClick={signUp} className="login_signUp btn btn-success">
-                        <Link to="/empty" className="signUp_link">
-                            Sign Up <i className="fa fa-user-plus"></i>
+                    <br/><br/>
+                    <div>
+                        <Link to="/signup">
+                            <a>New user? Create account here.</a>
                         </Link>
-                    </button>
-
-
+                    </div>
                 </form>
 
             </div>

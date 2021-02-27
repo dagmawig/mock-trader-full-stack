@@ -8,6 +8,7 @@ import Search from './components/Search';
 import History from './components/History';
 import Loading from './components/Loading';
 import { useEffect } from 'react';
+import SignUp from './components/SignUp';
 
 function App() {
 
@@ -28,6 +29,27 @@ function App() {
       <>
         <Loading />
         <Login />
+      </>
+    )
+  }
+
+  let signUp;
+
+  if (localStorage.getItem("userID")) {
+    signUp = (
+      <>
+        <Header />
+        <Loading />
+        <Home />
+        <Footer />
+      </>
+    )
+  }
+  else {
+    signUp = (
+      <>
+        <Loading />
+        <SignUp />
       </>
     )
   }
@@ -62,6 +84,9 @@ function App() {
             <div>
               Verification link sent to your email! <br />Please click on link to verify email....then <button><Link to="/">Login</Link></button>
             </div>
+          </Route>
+          <Route path="/signup">
+            {signUp}
           </Route>
           <Route path="/">
             {homePage}
