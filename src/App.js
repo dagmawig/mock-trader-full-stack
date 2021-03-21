@@ -9,6 +9,7 @@ import History from './components/History';
 import Loading from './components/Loading';
 import { useEffect } from 'react';
 import SignUp from './components/SignUp';
+import Reset from './components/PassReset';
 
 function App() {
 
@@ -87,6 +88,9 @@ function App() {
           </Route>
           <Route path="/signup">
             {signUp}
+          </Route>
+          <Route path="/reset">
+            <Reset />
           </Route>
           <Route path="/">
             {homePage}

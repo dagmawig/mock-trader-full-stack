@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './SignUp.css';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { auth } from './FirebaseConfig';
 
 
@@ -54,6 +54,11 @@ function SignUp() {
                     <div>
                         <Link to="/">
                             <a>Existing user? Sign in here.</a>
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/reset">
+                            <a>Forgot password? Reset password here.</a>
                         </Link>
                     </div>
                 </form>

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Login.css';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { auth } from './FirebaseConfig';
 import { useStateValue } from './StateWrap';
-import axios from 'axios';
 
 
 function Login() {
@@ -61,6 +60,11 @@ function Login() {
                     <div>
                         <Link to="/signup">
                             <a>New user? Create account here.</a>
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/reset">
+                            <a>Forgot password? Reset password here.</a>
                         </Link>
                     </div>
                 </form>
