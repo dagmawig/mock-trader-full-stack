@@ -324,7 +324,9 @@ function Search() {
             searchStock(e);
         }
     }
-
+    // handle color of total return value
+    const gain =(search.price)? ((parseFloat(search.price.replace(',', ''))/parseFloat(search.averCost.replace(",", ""))-1 > 0)? "green" : ((parseFloat(search.price.replace(',', ''))/parseFloat(search.averCost.replace(",", ""))-1 < 0)? "red" : "white")) : "white";
+    
     // hook to reload data from server and put it into app state.
     useEffect(() => {
 
@@ -412,15 +414,15 @@ function Search() {
                                         Average Cost
                  </div>
                                     <div className="search_cost_bottom row">
-                                        ${formatNum(search.averCost)}
+                                        ${formatNum(search.averCost.replace(",", ""))}
                                     </div>
                                 </div>
                                 <div className="search_return col-6">
                                     <div className="search_return_top row">
                                         Total Return
                  </div>
-                                    <div className="search_return_bottom row">
-                                        ${formatNum(search.shares * (parseFloat(search.price.replace(',', '')) - search.averCost))}
+                                    <div className="search_return_bottom row" style={{color: gain}}>
+                                        ${`${formatNum(search.shares * (parseFloat(search.price.replace(',', '')) - parseFloat(search.averCost.replace(",", ""))))}`} <br/> {`(${formatNum((parseFloat(search.price.replace(',', ''))/parseFloat(search.averCost.replace(",", ""))-1)*100)}%)`}
                                     </div>
                                 </div>
                                 <div className="search_trade col-6">
