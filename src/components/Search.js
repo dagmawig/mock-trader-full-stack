@@ -325,7 +325,7 @@ function Search() {
         }
     }
     // handle color of total return value
-    const gain =(search.price)? ((parseFloat(search.price.replace(',', ''))/parseFloat(search.averCost.replace(",", ""))-1 > 0)? "green" : ((parseFloat(search.price.replace(',', ''))/parseFloat(search.averCost.replace(",", ""))-1 < 0)? "red" : "white")) : "white";
+    const gain =(search.price && search.averCost)? ((parseFloat(search.price.replace(',', ''))/parseFloat(search.averCost.replace(",", ""))-1 > 0)? "green" : ((parseFloat(search.price.replace(',', ''))/parseFloat(search.averCost.replace(",", ""))-1 < 0)? "red" : "white")) : "white";
     
     // hook to reload data from server and put it into app state.
     useEffect(() => {
@@ -414,7 +414,7 @@ function Search() {
                                         Average Cost
                  </div>
                                     <div className="search_cost_bottom row">
-                                        ${formatNum(search.averCost.replace(",", ""))}
+                                        ${(search.averCost)? formatNum(search.averCost.replace(",", "")) : formatNum(search.averCost)}
                                     </div>
                                 </div>
                                 <div className="search_return col-6">
@@ -422,7 +422,7 @@ function Search() {
                                         Total Return
                  </div>
                                     <div className="search_return_bottom row" style={{color: gain}}>
-                                        ${`${formatNum(search.shares * (parseFloat(search.price.replace(',', '')) - parseFloat(search.averCost.replace(",", ""))))}`} <br/> {`(${formatNum((parseFloat(search.price.replace(',', ''))/parseFloat(search.averCost.replace(",", ""))-1)*100)}%)`}
+                                        ${`${formatNum(search.shares * (parseFloat(search.price.replace(',', '')) - parseFloat((search.averCost)? search.averCost.replace(",", "") : search.averCost)))}`} <br/> {(search.averCost)? `(${formatNum((parseFloat(search.price.replace(',', ''))/parseFloat((search.averCost)? search.averCost.replace(",", "") : search.averCost)-1)*100)}%)` : null}
                                     </div>
                                 </div>
                                 <div className="search_trade col-6">
