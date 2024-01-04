@@ -380,7 +380,7 @@ function Search() {
                                         {search.searchedTicker}
                                     </div>
                                     <div className="search_header_price row">
-                                        ${search.price}
+                                        ${Number(Number(search.price).toFixed(2)).toLocaleString(undefined, {minimumFractionDigits: 2,})}
                                     </div>
                                 </div>
                                 <div className="search_add col-6">

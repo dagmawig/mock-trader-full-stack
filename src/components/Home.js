@@ -103,7 +103,7 @@ function Home() {
                             {ticker}
                         </div>
                         <div className="home_stock_price col-6">
-                            ${watchlist.price[i]}
+                            ${Number(Number(watchlist.price[i]).toFixed(2)).toLocaleString(undefined, {minimumFractionDigits: 2,})}
                         </div>
                     </Link>
                 </button>
@@ -124,7 +124,7 @@ function Home() {
                             {portfolio.shares[i]} shares
                         </div>
                         <div className="home_stock_price col-4">
-                            ${portfolio.price[i]}
+                            ${Number(Number(portfolio.price[i]).toFixed(2)).toLocaleString(undefined, {minimumFractionDigits: 2,})}
                         </div>
                     </Link>
                 </button>
