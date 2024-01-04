@@ -1,23 +1,16 @@
 {
   "files": {
-    "main.css": "/mock-trader-full-stack/static/css/main.76b9a317.chunk.css",
-    "main.js": "/mock-trader-full-stack/static/js/main.8852740e.chunk.js",
-    "main.js.map": "/mock-trader-full-stack/static/js/main.8852740e.chunk.js.map",
-    "runtime-main.js": "/mock-trader-full-stack/static/js/runtime-main.945e12a0.js",
-    "runtime-main.js.map": "/mock-trader-full-stack/static/js/runtime-main.945e12a0.js.map",
-    "static/js/2.1e6e7860.chunk.js": "/mock-trader-full-stack/static/js/2.1e6e7860.chunk.js",
-    "static/js/2.1e6e7860.chunk.js.map": "/mock-trader-full-stack/static/js/2.1e6e7860.chunk.js.map",
-    "static/js/3.fed7f5e8.chunk.js": "/mock-trader-full-stack/static/js/3.fed7f5e8.chunk.js",
-    "static/js/3.fed7f5e8.chunk.js.map": "/mock-trader-full-stack/static/js/3.fed7f5e8.chunk.js.map",
+    "main.css": "/mock-trader-full-stack/static/css/main.bf687f7d.css",
+    "main.js": "/mock-trader-full-stack/static/js/main.cdd080d4.js",
+    "static/js/377.c7fe7578.chunk.js": "/mock-trader-full-stack/static/js/377.c7fe7578.chunk.js",
+    "static/media/background.jpg": "/mock-trader-full-stack/static/media/background.f7ef92660ccd1f700dbf.jpg",
     "index.html": "/mock-trader-full-stack/index.html",
-    "static/css/main.76b9a317.chunk.css.map": "/mock-trader-full-stack/static/css/main.76b9a317.chunk.css.map",
-    "static/js/2.1e6e7860.chunk.js.LICENSE.txt": "/mock-trader-full-stack/static/js/2.1e6e7860.chunk.js.LICENSE.txt",
-    "static/media/History.css": "/mock-trader-full-stack/static/media/background.f7ef9266.jpg"
+    "main.bf687f7d.css.map": "/mock-trader-full-stack/static/css/main.bf687f7d.css.map",
+    "main.cdd080d4.js.map": "/mock-trader-full-stack/static/js/main.cdd080d4.js.map",
+    "377.c7fe7578.chunk.js.map": "/mock-trader-full-stack/static/js/377.c7fe7578.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.945e12a0.js",
-    "static/js/2.1e6e7860.chunk.js",
-    "static/css/main.76b9a317.chunk.css",
-    "static/js/main.8852740e.chunk.js"
+    "static/css/main.bf687f7d.css",
+    "static/js/main.cdd080d4.js"
   ]
 }
